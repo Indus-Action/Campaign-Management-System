@@ -1,0 +1,165 @@
+<form name="form_studio_form">
+<div layout="row">
+  <md-input-container flex>
+    <label>Form Name</label>
+    <input required type="text" name="form-name" id="form-name" ng-model="form.name">
+    <div ng-messages="form_studio_form.form-name.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Required.
+      </div>
+    </div>
+  </md-input-container>
+
+  <md-input-container flex ng-show="!nested">
+    <label>Form ID</label>
+    <input type="text" name="form-id" id="form-id" ng-model="form.id" ng-disabled="true">
+  </md-input-container>
+</div>
+<div layout="row">
+  <md-input-container flex>
+    <label>Form Description</label>
+    <textarea ng-required="!nested" name="form-description" id="form-description" ng-model="form.description"></textarea>
+    <div ng-messages="form_studio_form.form-description.$error" role="alert">
+      <div ng-message-exp="['required']">
+        Required.
+      </div>
+    </div>
+  </md-input-container>
+</div>
+
+<div layout="row"><span class="h3">Fields</span></div>
+<div class="add-field" layout="row" ng-hide="!vm.add_fields_enabled">
+  <span flex="10"></span>
+  <md-input-container flex="40">
+    <md-select ng-model="vm.newField.selected" aria-label="Select">
+      <md-option ng-repeat="type in vm.newField.types" value="{{type.name}}">
+        {{type.value}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-button flex="20" class="md-primary" ng-click="vm.addNewField()"><i class="material-icons icon-align">add</i> Add Field</md-button>
+</div>
+
+<br><hr>
+<span ng-show="form.fields.length == 0">No fields added yet.</span>
+
+<uib-accordion close-others="vm.accordion.oneAtATime">
+  <div uib-accordion-group class="panel-default" ng-repeat="field in form.fields">
+    <uib-accordion-heading>
+      <div ng-if="field.type != 'nestedfield'">
+        {{field.title}}
+      </div>
+      <div ng-if="field.type == 'nestedfield'">
+        {{field.fields.name}}
+      </div>
+    </uib-accordion-heading>
+    <div class="accordion-edit">
+      <div layout="row" flex>
+        <div layout="column" flex>
+          <div layout="row">
+            <span flex="20">Field ID : </span>
+            <span flex="20">{{field.id}}</span>
+          </div>
+          <div layout="row">
+            <span flex="20">Field Type:</span>
+            <span flex="20">{{field.type}}</span>
+          </div>
+        </div>
+        <div layout="column">
+          <md-button class="no-margin" ng-disabled="$index == 0" ng-click="vm.moveFieldUp(form.fields, $index)"><i class="material-icons icon-align">keyboard_arrow_up</i></md-button>
+          <md-button class="no-margin" ng-disabled="$index == form.fields.length - 1" ng-click="vm.moveFieldDown(form.fields, $index)"><i class="material-icons icon-align">keyboard_arrow_down</i></md-button>
+        </div>
+        <md-button class="md-warn" ng-click="vm.deleteField(field.id, form.fields)"><i class="material-icons icon-align">clear</i> Delete</md-button>
+      </div>
+
+      <hr>
+
+      <div ng-if="field.type != 'nestedfield'">
+        <div layout="row" ng-show="vm.haveDefault(field)">
+          <md-input-container flex>
+            <label>Field Title</label>
+            <input type="text" ng-model="field.title">
+          </md-input-container>
+
+          <md-input-container ng-if="field.type != 'submitbutton'" flex>
+            <label>Field Default Value <span ng-show="field.type=='checkbox'">(0/1)</span></label>
+            <input type="text" ng-model="field.value">
+          </md-input-container>
+        </div>
+
+        <div ng-if="vm.isFieldWithOptions(field)" ng-init="vm.loadBulkOptions($index, field)">
+          <div layout="row">
+            <div flex>Field Options:</div>
+            <md-button class="md-icon-button md-raised md-primary" ng-click="vm.toggleOptionsView($index, field)">
+              <md-tooltip>
+                Toggle List/Bulk
+              </md-tooltip>
+              <i class="material-icons" ng-show="!field.isBulk">insert_drive_file</i>
+              <i class="material-icons" ng-show="field.isBulk">storage</i>
+            </md-button>
+          </div>
+          <br>
+          <div ng-show="!field.isBulk">
+            <div layout="row" ng-repeat="option in field.options">
+              <md-input-container flex>
+                <label>Title</label>
+                <input type="text" ng-model="option.title" value="{{option.title}}">
+              </md-input-container>
+              <md-input-container flex>
+                <label>Value</label>
+                <input type="text" ng-model="option.value" value="{{option.value}}">
+              </md-input-container>
+              <md-button class="md-icon-button md-raised md-warn" ng-click="vm.deleteOption(field, option)"><i class="material-icons">clear</i></md-button>
+            </div>
+            <md-button class="md-primary" ng-click="vm.addOption(field)"><i class="material-icons icon-align">add</i> Add Option</md-button>
+          </div>
+
+          <div ng-show="field.isBulk">
+            <md-input-container layout="row" flex>
+              <label>Options (Comma-seperated list)</label>
+              <textarea ng-model="vm.temp_form_fields[$index].raw_list"></textarea>
+            </md-input-container>
+            <md-button class="md-primary" ng-click="vm.storeBulkOptions($index, field)"><i class="material-icons icon-align">file_upload</i> Load</md-button>
+          </div>
+        </div>
+
+        <md-switch class="md-primary" ng-disabled="vm.disableRequiredButton(field)" ng-model="field.required" aria-label="Required switch">
+          Required
+        </md-switch>
+
+        <md-switch class="md-warn" ng-model="field.disabled" aria-label="Disabled switch">
+          Disabled
+        </md-switch>
+
+        <md-switch class="md-accent" ng-disabled="vm.disableMultipleButton(field)" ng-model="field.multiple" aria-label="Multiple switch">
+          Multiple
+        </md-switch>
+        <md-switch class="md-accent" ng-model="field.persistent" aria-label="Persistent switch">
+          Persistent
+        </md-switch>
+      </div>
+      <div ng-if="field.type == 'nestedfield'">
+        <form-editor-directive form="field.fields" parentvm="vm" nested="true"></form-editor-directive>
+
+        <md-switch class="md-accent" ng-model="field.multiple" aria-label="Multiple switch">
+          Multiple
+        </md-switch>
+
+        <div layout="row">
+          <md-switch class="md-accent" ng-model="field.tabbed" aria-label="Tabbed view switch">
+            Tabbed
+          </md-switch>
+          <md-switch class="md-accent" ng-show="field.tabbed" ng-model="field.tabs_position" ng-false-value="'top'" ng-true-value="'bottom'" aria-label="Tabs position">
+            Position: {{field.tabs_position}}
+          </md-switch>
+        </div>
+
+        <md-switch class="md-accent" ng-model="field.persistent" aria-label="Persistent switch">
+          Persistent
+        </md-switch>
+      </div>
+
+    </div>
+  </div>
+</uib-accordion>
+</form>

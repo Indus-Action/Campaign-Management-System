@@ -1,0 +1,17 @@
+<md-card>
+  <md-card-content>
+    <span flex><h4>{{ spaceType.name }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditSpaceTypePopup(spaceType, $event)" ng-show="vm.is_authenticated && vm.is_admin">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <div>
+      <form data-ng-submit="vm.addSpaces()">
+        <input type="file" id="fileInput">
+        <md-button class= "md-icon-button" type="submit">
+          <md-icon md-font-set="material-icons">file_upload</md-icon>
+        </md-button>
+      </form>
+    </div>
+    <p>{{ spaceType.desc }}</p>
+  </md-card-content>
+</md-card>

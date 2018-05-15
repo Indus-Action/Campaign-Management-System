@@ -1,0 +1,91 @@
+<div layout="column" ng-cloak>
+  <md-content flex layout-padding>
+    <section layout="row" flex>
+      <md-button class="md-fab md-raised vms-side-nav" ng-show="!vm.isSidenavOpen()" ng-click="vm.openSidenav()">
+        <md-icon md-font-set="material-icons">menu</md-icon>
+      </md-button>
+      <md-sidenav
+         class="md-sidenav-left"
+         md-component-id="left"
+
+         md-whiteframe="4">
+
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools">Lookup Beneficiary</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+          <md-button class="md-primary" ng-click="vm.showTrainingKit($event)">
+            Show Training Kit
+          </md-button>
+          <notes notes="vm.beneficiary_notes"></notes>
+          <md-divider></md-divider>
+          <messages messages="vm.beneficiary_messages"></messages>
+          <md-divider></md-divider>
+          <ivrs ivrs="vm.beneficiary_ivrs"></ivrs>
+          <md-divider></md-divider>
+          <todos todos="vm.beneficiary_todos"></todos>
+          <md-divider></md-divider>
+        </md-content>
+      </md-sidenav>
+
+      <div class="fab-sticky" layout="row" ng-cloak>
+        <md-fab-speed-dial md-direction="up" md-open="vm.is_fab_open" class="md-fling vms-fab-bottom-right">
+          <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab">
+              <md-icon md-font-set="material-icons" aria-label="menu">menu</md-icon>
+            </md-button>
+          </md-fab-trigger>
+
+          <md-fab-actions>
+            <md-button aria-label="Change Status" class="md-fab md-raised md-mini" ng-click="vm.openChangeStatusPopup()">
+              <md-tooltip>
+                Change Status
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="Change Status">forward</md-icon>
+            </md-button>
+            <md-button aria-label="Change Stage" class="md-fab md-raised md-mini" ng-click="vm.openChangeStagePopup()">
+              <md-tooltip>
+                Change Stage
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="Change Stage">send</md-icon>
+            </md-button>
+            <md-button aria-label="Send Message" class="md-fab md-raised md-mini" ng-click="vm.openSendMessagePopup()">
+              <md-tooltip>
+                Send Message
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="message">message</md-icon>
+            </md-button>
+            <md-button aria-label="Add Tag" class="md-fab md-raised md-mini" ng-click="vm.openAddTagPopup()">
+              <md-tooltip>
+                Add tags
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="tag">label</md-icon>
+            </md-button>
+            <md-button aria-label="Add Note" class="md-fab md-raised md-mini" ng-click="vm.openAddNotePopup()">
+              <md-tooltip>
+                Add Note
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="note">note_add</md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-fab-speed-dial>
+      </div>
+
+      <md-button class="md-fab md-warn md-raised md-hue-2 vms-call-end" ng-show="vm.is_current_call_active" ng-click="vm.end_call($event);">
+        <md-icon md-font-set="material-icons">call_end</md-icon>
+      </md-button>
+
+      <div class="container">
+        <div class="well">
+          <h3>Username: {{ vm.beneficiary.username }}
+        </div>
+        <div layout="row" class="well vms2-form-render-cont">
+          <div flex>
+            <!-- <form-directive form="vm.persistent_form" vm="vm" live="vm.isformlive" persistent="true" ng-show="vm.show_persistent"></form-directive>-->
+            <form-directive form="vm.view_form" vm="vm" live="vm.isformlive"></form-directive>
+          </div>
+        </div>
+      </div>
+    </section>
+  </md-content>
+</div>

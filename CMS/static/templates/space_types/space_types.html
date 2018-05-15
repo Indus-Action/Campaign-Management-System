@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="column" flex>
+    <div ng-repeat="spaceType in vm.spaceTypes">
+      <space-type space-type="spaceType" parent="vm"></space-type>
+    </div>
+  </div>
+  <div flex ng-hide="vm.spaceTypes && vm.spaceTypes.length" layout-align="end end">
+    <div>
+      <em>No space types yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewSpaceTypePopup()">
+      <md-tooltip>
+        Add a new space type
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

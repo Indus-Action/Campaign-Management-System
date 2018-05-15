@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row">
+    <h3>Update User Details</h3><hr/>
+    {% include "fragments/user_details_form.html" %}
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+    $().ready(function(){
+      $.ajax({
+        url: "{% url 'rest_user_details' %}",
+        type: "GET",
+        success: function(data) {
+          $('input[name=mobile]').val(data.mobile);
+          $('input[name=email]').val(data.email);
+          $('input[name=first_name]').val(data.first_name);
+          $('input[name=last_name]').val(data.last_name);
+        }
+      });
+      return false;
+    });
+
+    $('form button[type=submit]').click(function(){
+      var form = $('#edit_user_profile');
+      $.ajax({
+        url: form.attr('action'),
+        data: $('form').serialize(),
+        type: "PUT",
+      }).fail(function(data){ console.log("error"); })
+      .done(function(data){ console.log("success"); });
+
+      return false;
+    });
+  </script>
+{% endblock %}

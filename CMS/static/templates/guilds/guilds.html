@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="row" flex>
+    <div ng-repeat="guild in vm.guilds">
+      <guild guild="guild" parent="vm"></note>
+    </div>
+  </div>
+  <div flex ng-hide="vm.guilds && vm.guilds.length" layout-align="end end">
+    <div>
+      <em>No guilds yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewGuildPopup()">
+      <md-tooltip>
+        Create a new guild
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<md-dialog aria-label="Registration" class="login-register-update-dialog" ng-cloak>
+  <form name="register_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Register</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <label>Email</label>
+            <input required type="email" name="email" ng-model="user_detail.email" minlength="5" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+            <div ng-messages="register_form.email.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                Your email must be between 5 and 100 characters long and look like an e-mail address.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <label>Mobile</label>
+            <input required type="tel" name="mobile" ng-model="user_detail.mobile" />
+            <div ng-messages="register_form.mobile.$error" role="alert">
+              <div ng-message-exp="['required']">
+                Enter a valid mobile number.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+         <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <label>Username</label>
+            <input required type="text" name="username"  ng-model="user_detail.username"/>
+           
+          </md-input-container>
+        </div>
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <label>Password</label>
+            <input required type="password" name="password1" minlength="6" maxlength="30" ng-model="user_detail.password1"/>
+            <div ng-messages="register_form.password1.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                Password is required and must be between 6 and 100 characters long.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <label>Confirm Password</label>
+            <input required type="password" name="password2" ng-change="matchPass(register_form)" ng-model="user_detail.password2"/>
+            <div ng-messages="register_form.password2.$error" role="alert">
+              <div ng-message="matchPassword">
+                Password does not match.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+
+
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="register_form.$invalid || matchpass" ng-click="registerPerform()" md-raised>
+        Register
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+    <div class="alert alert-danger" ng-show="registerfail" >
+      <a href="#" class="close" ng-click="registerfail=false" >&times;</a>
+      <strong>Error : </strong> Sign up failed.
+      <br>
+      <span ng-repeat="(field,error) in registerfailmessages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+  </form>
+</md-dialog>

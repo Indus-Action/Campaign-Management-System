@@ -1,0 +1,38 @@
+<div class="container">
+  <md-content>
+    <div layout="row">
+      <span class="h1">Forms list</span>
+    </div>
+    <br>
+    <div layout="row">
+      <md-button class="md-raised md-primary" ng-disabled="!vm.is_admin" ng-click="vm.createForm()">Create Form</md-button>
+    </div>
+    <br>
+    <div class="">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="form in vm.forms">
+            <td>{{form.id}}</td>
+            <td>{{form.name}}</td>
+            <td>{{form.description.length<=15?form.description:form.description.substr(0,12)+'...'}}</td>
+            <td><md-button class="md-icon-button" title="Add data" ng-click="vm.addData(form.id)"><i class="material-icons">add</i></md-button></td>
+            <td><md-button class="md-icon-button" title="Show data" ng-click="vm.getData(form.id)"><i class="material-icons">list</i></md-button></td>
+            <td><md-button class="md-icon-button" title="Edit Form" ng-disabled="!vm.is_admin" ng-click="vm.editForm(form.id)"><i class="material-icons">mode_edit</i></md-button></td>
+            <td><md-button class="md-icon-button" title="Delete Form" ng-disabled="!vm.is_admin" ng-click="vm.deleteForm(form.id)"><i class="material-icons">clear</i></md-button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </md-content>
+</div>

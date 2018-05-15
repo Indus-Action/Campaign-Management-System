@@ -1,0 +1,86 @@
+<md-dialog aria-label="Create Bulk Tasks">
+  <form name="create_bulk_tasks_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create Bulk Tasks</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.create_bulk_tasks_failed">
+      <a href="#" class="close" ng-click="vm.create_bulk_tasks_failed = false;" >&times;</a>
+      <strong>Error : </strong> Create Bulk Tasks Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.create_bulk_tasks_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Task Type</label>
+          <md-select required name="task_type" placeholder="Select Task Type" ng-model="vm.data.task_type" style="min-width: 200px;">
+            <md-option ng-value="task_type.id" ng-repeat="task_type in vm.task_types">{{ task_type.task_type }}</md-option>
+          </md-select>
+          <div ng-messages="create_bulk_tasks_form.task_type.$error" role="alert">
+            <div ng-message-exp="['required']">
+              Please select a task type
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Task Status</label>
+          <md-select required name="task_status" placeholder="Select Task Status" ng-model="vm.data.task_status" style="min-width: 200px;">
+            <md-option ng-value="task_status.id" ng-repeat="task_status in vm.task_status">{{ task_status.status }}</md-option>
+          </md-select>
+          <div ng-messages="create_bulk_tasks_form.task_status.$error" role="alert">
+            <div ng-message-exp="['required']">
+              Please select a task status
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <md-switch class="md-primary" md-no-ink aria-label="Empty tasks switch" ng-model="vm.empty_tasks">
+            Empty tasks
+          </md-switch>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <md-switch class="md-primary" md-no-ink aria-label="Empty tasks switch" ng-model="vm.data.random_assign">
+            Assign randomly
+          </md-switch>
+        </md-input-container>
+        <md-input-container ng-if="vm.data.random_assign">
+          <label>User Type</label>
+          <md-select ng-model="vm.data.assignee_type">
+            <md-option ng-repeat="(key, value) in vm.user_types" value="{{key}}">
+              {{value}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block" ng-show="vm.empty_tasks">
+          <label>Number of Tasks</label>
+          <input name="number_of_tasks" ng-model="vm.data.number_of_tasks" ng-pattern="/^[0-9]{1,3}$/">
+          <div ng-messages="create_bulk_tasks_form.number_of_tasks.$error" role="alert">
+            <div ng-message-exp="['required', 'ng-pattern']">
+              Please enter a valid numeric value less than 1000
+            </div>
+          </div>
+        </md-input-container>
+        <div ng-hide="vm.empty_tasks">
+          <input type="file" id="fileInput">
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.createBulkTasks()" ng-disabled="create_bulk_tasks_form.$invalid" class="md-raised md-primary">
+        Create
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.create_bulk_tasks_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

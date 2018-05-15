@@ -1,0 +1,50 @@
+<md-dialog aria-label="New Message">
+  <form name="new_message_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>New Message</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="message_creation_failed">
+      <a href="#" class="close" ng-click="vm.message_creation_failed = false;" >&times;</a>
+      <strong>Error : </strong> Message Creation Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.message_creation_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Message Template</label>
+      <md-select placeholder="Select Message Template" ng-model="vm.message_template" style="min-width: 200px;" md-on-close="vm.onTemplateSelect();">
+        <md-option ng-value="template" ng-repeat="template in vm.message_templates">{{ template.title }}</md-option>
+      </md-select>
+      <br/>
+    </md-input-container>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Message</label>
+          <textarea name="message" ng-model="vm.data.message" minlength="3" maxlength="1000" disabled></textarea>
+          <div ng-messages="new_message_form.message.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 1000 characters.
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.createNewMessage()" class="md-raised md-primary">
+        Send
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.message_creation_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,62 @@
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.filelist div[dnd-list],
+.filelist div[dnd-list] > li {
+    position: relative;
+}
+
+/**
+ * The dnd-list shodivd always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.filelist div[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.filelist div[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.filelist div[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.filelist div[dnd-list] div {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Show selected elements in green
+ */
+.filelist div[dnd-list] div.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}

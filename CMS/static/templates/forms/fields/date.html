@@ -1,0 +1,29 @@
+<ng-form layout="row" name="innerForm" id="innerForm">
+  <div ng-show="!field.multiple" layout="row" flex>
+    <md-input-container flex>
+      <label>{{field.title}}</label>
+      <md-datepicker ng-model="field.value" name="datefield" ng-required="field.required" ng-disabled="field.disabled" md-open-on-focus></md-datepicker>
+      <div ng-messages="innerForm.datefield.$error">
+        <div ng-message-exp="['required']">
+          This field is required.
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div ng-show="field.multiple" flex class="well">
+    <md-button ng-show="field.multiple" class="md-primary" ng-click="vm.addMoreToMultiField()"><i class="material-icons icon-align md-icon-button">add</i>More {{field.title}}</md-button>
+
+    <div layout="row" flex ng-repeat="val in field.value track by $index">
+      <md-input-container flex>
+        <md-datepicker ng-model="field.value[$index]" name="datefield" ng-required="field.required" ng-disabled="field.disabled" md-open-on-focus></md-datepicker>
+        <div ng-messages="innerForm.datefield.$error">
+          <div ng-message-exp="['required']">
+            Required.
+          </div>
+        </div>
+      </md-input-container>
+      <md-button class="md-warn" ng-click="vm.deleteItem(field.value, $index)"><i class="material-icons icon-align">clear</i></md-button>
+    </div>
+  </div>
+</ng-form>

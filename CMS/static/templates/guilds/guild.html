@@ -1,0 +1,17 @@
+<md-card>
+  <md-card-content>
+    <span flex><h4>{{ guild.name }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditGuildPopup(guild, $event)">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <div>
+      <form data-ng-submit="vm.addUsers()">
+        <input type="file" id="fileInput">
+        <md-button class= "md-icon-button" type="submit">
+          <md-icon md-font-set="material-icons">file_upload</md-icon>
+        </md-button>
+      </form>
+    </div>
+    <p>{{ guild.description }}</p>
+  </md-card-content>
+</md-card>

@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="row" flex>
+    <div ng-repeat="category in vm.categories">
+      <category category="category" parent="vm"></category>
+    </div>
+  </div>
+  <div flex ng-hide="vm.categories && vm.categories.length" layout-align="end end">
+    <div>
+      <em>No task status categories yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewCategoryPopup()">
+      <md-tooltip>
+        Add a new task status category
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

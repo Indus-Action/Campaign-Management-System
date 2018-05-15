@@ -1,0 +1,35 @@
+.select_helpline_operator_select_header .helpline_operator_header_searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; }
+.select_helpline_operator_select_header .helpline_operator_select_header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto; }
+.select_helpline_operator_select_Header md-content._md {
+    max-height: 240px; }
+
+.select_volunteer_select_header .volunteer_header_searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0; }
+.select_volunteer_select_header .volunteer_select_header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto; }
+.select_volunteer_select_Header md-content._md {
+    max-height: 240px; }

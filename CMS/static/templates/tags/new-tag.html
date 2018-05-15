@@ -1,0 +1,70 @@
+<md-dialog aria-label="New Tag">
+  <form name="new_tag_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>New Tag</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.tag_creation_failed">
+      <a href="#" class="close" ng-click="vm.tag_creation_failed = false;" >&times;</a>
+      <strong>Error : </strong> Tag Creation Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.tag_creation_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Tag</label>
+          <input required name="tag" ng-model="vm.data.tag" minlength="3" maxlength="20">
+          <div ng-messages="new_tag_form.tag.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 20 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="vm.data.desc" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+        <div>
+          <h1 class="md-title">Pick mutually exclusive tags</h1>
+          <div layout="row">
+            <md-input-container>
+              <label>Tags</label>
+              <md-select ng-model="vm.data.exclusive_tags"
+                         md-on-close="vm.clearSearchTerm()"
+                         data-md-container-class="select_tag_select_header"
+                         multiple>
+                <md-select-header class="tag-select-header">
+                  <input ng-model="vm.search_term"
+                         type="search"
+                         placeholder="Start typing out a tag..."
+                         class="tag-header-searchbox md-text"
+                         ng-keydown="vm.onSearchTextChange($event)">
+                </md-select-header>
+                <md-optgroup label="tags">
+                  <md-option ng-value="tag.id" ng-repeat="tag in vm.available_tags">{{ tag.tag }}</md-option>
+                </md-optgroup>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.createNewTag()" class="md-raised md-primary">
+        Create
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.tag_creation_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

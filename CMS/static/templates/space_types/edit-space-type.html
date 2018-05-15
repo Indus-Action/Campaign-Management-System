@@ -1,0 +1,55 @@
+<md-dialog aria-label="Edit SpaceType">
+  <form name="edit_space_type_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit SpaceType</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="space_type_edit_failed">
+      <a href="#" class="close" ng-click="vm.space_type_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> SpaceType Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.space_type_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>SpaceType</label>
+          <textarea name="space_type" ng-model="vm.data.name" minlength="3" maxlength="150"></textarea>
+          <div ng-messages="edit_space_type_form.space_type.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 150 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea name="desc" ng-model="vm.data.desc" minlength="3" maxlength="150"></textarea>
+          <div ng-messages="edit_space_type_form.desc.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 150 characters.
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteSpaceType()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editSpaceType()" class="md-raised md-primary">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.space_type_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="row" flex>
+    <div ng-repeat="todo in vm.todos">
+      <todo todo="todo" parent="vm"></todo>
+    </div>
+  </div>
+  <div flex ng-hide="vm.todos && vm.todos.length" layout-align="end end">
+    <div>
+      <em>No todos yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewTodoPopup()">
+      <md-tooltip>
+        Add a new todo
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

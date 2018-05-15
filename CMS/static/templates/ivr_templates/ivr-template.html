@@ -1,0 +1,10 @@
+<md-card>
+  <md-card-content>
+    <span flex><h3>{{ ivrt.title }}</h3></span>
+    <span flex><h4>{{ ivrt.body }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditIVRTemplatePopup(ivrt, $event)">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <p>Created by: {{ vm.creator.user.first_name }} {{ vm.creator.user.last_name }}</p>
+  </md-card-content>
+</md-card>

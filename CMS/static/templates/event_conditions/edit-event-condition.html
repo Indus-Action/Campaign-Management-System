@@ -1,0 +1,101 @@
+<div>
+  <form name="edit_event_condition_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Event Condition</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.event_condition_edit_failed">
+      <a href="#" class="close" ng-click="vm.event_condtion_edit_failed=false" >&times;</a>
+      <strong>Error : </strong> Event condition edit failed.
+      <br>
+      <span ng-repeat="(field,error) in vm.event_condition_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content layout-padding>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Event Name</label>
+          <input ng-model="vm.data.name">
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Task Status</label>
+          <md-select placeholder="Select Task Status" ng-model="vm.selected_task_status" style="min-width: 200px;">
+            <md-option ng-value="task_status" ng-repeat="task_status in vm.task_status">{{ task_status.status }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Task Type</label>
+          <md-select placeholder="Select Task Type" ng-model="vm.selected_task_type" style="min-width: 200px;">
+            <md-option ng-value="task_type" ng-repeat="task_type in vm.task_types">{{ task_type.task_type }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Stage</label>
+          <md-select placeholder="Select Stage" ng-model="vm.selected_stage" style="min-width: 200px;">
+            <md-option ng-value="stage" ng-repeat="stage in vm.stages">{{ stage.name }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container>
+          <label>Tags</label>
+          <md-select ng-model="vm.selected_tags"
+                     md-on-close="vm.clearSearchTerm()"
+                     data-md-container-class="select_tag_select_header"
+                     multiple>
+            <md-select-header class="tag-select-header">
+              <input ng-model="vm.search_term"
+                     type="search"
+                     placeholder="Search for a tag..."
+                     class="tag-header-searchbox md-text"
+                     ng-keydown="vm.onSearchTextChange($event)">
+            </md-select-header>
+            <md-optgroup label="tags">
+              <md-option ng-value="tag.id" ng-repeat="tag in vm.available_tags">{{ tag.tag }}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Hook</label>
+          <md-select placeholder="Select Hook" ng-model="vm.selected_hook" style="min-width: 200px;">
+            <md-option ng-value="hook" ng-repeat="hook in vm.hooks">{{ hook.desc }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+    </md-content>
+    <div layout-gt-sm="row">
+      <md-button ng-click="vm.deleteEventCondition()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editEventCondition()" class="md-primary md-raised" flex-gt-sm>
+        Save
+      </md-button>
+    </div>
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.task_edit_in_progress">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+  </form>
+</div>

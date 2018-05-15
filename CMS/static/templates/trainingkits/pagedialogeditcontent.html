@@ -1,0 +1,142 @@
+<md-dialog aria-label="Training Page Content Edit" class="page-content-edit-dialog" ng-cloak>
+  <form name="page_details_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Training Page Editor</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column" ng-cloak class="md-inline-form">
+              <div layout="row">
+                <md-input-container flex>
+                  <label>Page ID</label>
+                  <input type="text" name="id" ng-model="vm.page.id" disabled />
+                </md-input-container>
+
+                <md-input-container flex>
+                  <label>Name</label>
+                  <input type="text" name="name" ng-model="vm.page.name" disabled/>
+                </md-input-container>
+              </div>
+              <md-input-container flex>
+                <label>Content Type (Not supported)</label>
+                <md-select name="contenttype" ng-model="vm.page.content_type" disabled>
+                  <md-option ng-repeat="(key, value) in vm.pagetypes" value="{{key}}">
+                    {{value}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+
+              <md-input-container flex ng-show="vm.page.content_type == 'TXT'">
+                <label>Content</label>
+                <textarea required name="content" ng-model="vm.page.content" rows="4"> </textarea>
+              </md-input-container>
+
+              <div ng-show="vm.page.content_type != 'TXT'" flex>
+                <div class="filelist" layout="column">
+                  <span class"h3" flex>Files</span>
+                  <p flex>Total files: {{ vm.temp_content_file_list.length }}</p>
+
+                  <div dnd-list="vm.temp_content_file_list" layout="column" flex>
+                    <!-- The dnd-draggable directive makes an element draggable and will
+                         transfer the object that was assigned to it. If an element was
+                         dragged away, you have to remove it from the original list
+                         yourself using the dnd-moved attribute -->
+                    <div ng-repeat="item in vm.temp_content_file_list"
+                      dnd-draggable="item"
+                      dnd-moved="vm.temp_content_file_list.splice($index, 1)"
+                      dnd-effect-allowed="move"
+                      layout="row">
+                      <span>{{item.filename}}</span>
+                      <span flex></span>
+                      <md-button class="md-icon-button md-raised md-warn" ng-click="vm.deletePageFile($index)"><i class="material-icons">clear</i></md-button>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="" style="margin-bottom: 40px" ng-hide="vm.page.content_type=='VID' && vm.temp_content_file_list.length">
+                  <input type="file" nv-file-select="" uploader="uploader" multiple />
+
+                  <h3>Upload queue</h3>
+                  <p>Queue length: {{ uploader.queue.length }}</p>
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th width="50%">Name</th>
+                        <th ng-show="uploader.isHTML5">Size</th>
+                        <th ng-show="uploader.isHTML5">Progress</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="item in uploader.queue">
+                        <td><strong>{{ item.file.name }}</strong></td>
+                        <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                        <td ng-show="uploader.isHTML5">
+                          <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <span ng-show="item.isSuccess"><i class="material-icons">done</i></span>
+                          <span ng-show="item.isCancel"><i class="material-icons">not_interested</i></span>
+                          <span ng-show="item.isError"><i class="material-icons">remove</i></span>
+                        </td>
+                        <td nowrap>
+                          <md-button class="md-primary" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                            <i class="material-icons icon-align">file_upload</i> Upload
+                          </md-button>
+                          <md-button class="md-warn" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                            <i class="material-icons icon-align">not_interested</i> Cancel
+                          </md-button>
+                          <md-button class="md-accent" ng-click="item.remove()">
+                            <i class="material-icons icon-align">delete</i> Remove
+                          </md-button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div>
+                    <div>
+                      Queue progress:
+                      <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                      </div>
+                    </div>
+                    <md-button class="md-primary" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                      <i class="material-icons icon-align">file_upload</i> Upload all
+                    </md-button>
+                    <md-button class="md-warn" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                      <i class="material-icons icon-align">not_interested</i> Cancel all
+                    </md-button>
+                    <md-button class="md-accent" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                      <i class="material-icons icon-align">delete</i> Remove all
+                    </md-button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.savePage()">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="vms2">
+<head>
+  <title>VMS 2.0</title>
+
+  <base href="/" />
+
+  {% include 'stylesheets.html' %}
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+  <div class="container-fluid" style="height: 100%">
+    <div class="row" style="height: 100%">
+      <div ng-view style="height: 100%"></div>
+    </div>
+  </div>
+
+  {% include 'javascripts.html' %}
+</body>
+</html>

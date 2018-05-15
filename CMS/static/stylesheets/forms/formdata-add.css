@@ -1,0 +1,23 @@
+.vms-fab-bottom-right {
+    top: auto;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    position: fixed;
+}
+
+.vms-call-end {
+    top: 100px;
+    right: 20px;
+    bottom: auto;
+    left: auto;
+    position: fixed;
+}
+
+.vms-side-nav {
+    top: 100px;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    position: fixed;
+}

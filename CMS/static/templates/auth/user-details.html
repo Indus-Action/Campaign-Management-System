@@ -1,0 +1,19 @@
+<div layout="column">
+  <div class="well">
+    <h2>Username: {{ vm.user.username }}</h2>
+  </div>
+  <form-directive form="vm.persistent_form" vm="vm" live="vm.isformlive" persistent="true"></form-directive>
+  <h2>Tasks Related to the user</h2>
+  <tasks tasks="vm.beneficiary_tasks"></tasks>
+  <h2>Tasks assigned to the user</h2>
+  <tasks tasks="vm.assigned_tasks"></tasks>
+  <h2>User Notes</h2>
+  <notes notes="vm.beneficiary_notes"></notes>
+  <h2>Todos for the user</h2>
+  <todos todos="vm.beneficiary_todos"></todos>
+  <h2>Messages sent to the user</h2>
+  <messages messages="vm.beneficiary_messages"></messages>
+  <h2>IVRs sent to the user</h2>
+  <ivrs ivrs="vm.beneficiary_ivrs"></ivrs>
+  <!-- TODO: HISTORY -->
+</div>

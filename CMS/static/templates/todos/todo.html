@@ -1,0 +1,11 @@
+<md-card>
+  <md-card-content>
+    <md-checkbox ng-model="todo.done" ng-change="vm.updateTodo()">
+    </md-checkbox>
+    <span flex><h4>{{ todo.todo }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditTodoPopup(todo, $event)">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <p>Reported by: {{ todo.reporter }}</p>
+  </md-card-content>
+</md-card>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div layout="row">
+    <span class="h1">{{vm.form.name}}</span>
+  </div>
+  <div layout="row">
+    <span>{{vm.form.description}}</span>
+  </div>
+  <div layout="row">
+    <span>Form ID: {{vm.form.id}}</span>
+  </div>
+  <br>
+  <div layout="row">
+    <md-button class="md-raised md-primary" ng-click="vm.fillForm()">Add</md-button>
+  </div>
+  <br>
+  <div class="">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th ng-repeat="field in vm.form.fields">{{field.title}}</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="dat in vm.form_data">
+          <td>{{dat.id}}</td>
+          <td ng-repeat="field in vm.form.fields">{{(dat.data[field.title])?(dat.data[field.title]):NA}}</td>
+          <td><md-button class="md-icon-button" title="Edit" ng-click="vm.editFormData(dat.id)"><i class="material-icons">mode_edit</i></md-button></td>
+          <td><md-button class="md-icon-button" title="Delete" ng-click="vm.deleteFormData(dat.id)"><i class="material-icons">clear</i></md-button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

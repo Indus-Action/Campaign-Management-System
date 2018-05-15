@@ -1,0 +1,30 @@
+<ng-form layout="row" name="innerForm" id="innerForm">
+  <div ng-show="!field.multiple" layout="row" flex>
+    <md-input-container flex>
+      <label>{{field.title}}</label>
+      <input type="email" name="emailfield" value="{{field.value}}" ng-model="field.value" ng-required="field.required" ng-disabled="field.disabled"/>
+      <div ng-messages="innerForm.emailfield.$error" role="alert">
+        <div ng-message-exp="['required', 'email']">
+          Valid email address required.
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div ng-show="field.multiple" flex class="well">
+    <md-button ng-show="field.multiple" class="md-primary" ng-click="vm.addMoreToMultiField()"><i class="material-icons icon-align md-icon-button">add</i>More {{field.title}}</md-button>
+
+    <div layout="row" flex ng-repeat="val in field.value track by $index">
+      <md-input-container flex>
+        <label>{{field.title}}</label>
+        <input type="email" name="emailfield" ng-model="field.value[$index]" ng-required="field.required" ng-disabled="field.disabled"/>
+        <div ng-messages="innerForm.emailfield.$error" role="alert">
+          <div ng-message-exp="['required', 'email']">
+            Valid email address required.
+          </div>
+        </div>
+      </md-input-container>
+      <md-button class="md-warn" ng-click="vm.deleteItem(field.value, $index)"><i class="material-icons icon-align">clear</i></md-button>
+    </div>
+  </div>
+</ng-form>

@@ -1,0 +1,32 @@
+<md-dialog aria-label="Change Status">
+  <form name="change_status_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Change Status</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Task Status</label>
+          <md-select placeholder="Select Task Status" ng-model="vm.selected_status" style="min-width: 200px;">
+            <md-option ng-value="status" ng-repeat="status in vm.task_status">{{ status.status }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.changeStatus()" class="md-raised md-primary">
+        Update
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.status_change_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

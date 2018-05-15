@@ -1,0 +1,55 @@
+<md-dialog aria-label="Edit Guild">
+  <form name="edit_guild_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Guild</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="guild_edit_failed">
+      <a href="#" class="close" ng-click="vm.guild_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> Guild Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.guild_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Guild Name</label>
+          <input name="guild_name" ng-model="vm.data.name" minlength="3" maxlength="40"></input>
+          <div ng-messages="edit_guild_form.guild_name.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 40 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea name="guild_description" ng-model="vm.data.description" minlength="3" maxlength="150"></textarea>
+          <div ng-messages="edit_guild_form.guild_description.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 40 characters.
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteGuild()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editGuild()" class="md-raised md-primary">
+        Create
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.guild_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

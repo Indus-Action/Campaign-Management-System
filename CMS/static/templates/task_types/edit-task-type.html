@@ -1,0 +1,88 @@
+<md-dialog aria-label="Edit Task Type">
+  <form name="edit_task_type_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Task Type</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.task_type_edit_failed">
+      <a href="#" class="close" ng-click="vm.task_type_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> Task Type Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.task_type_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Task Type</label>
+          <input required name="task_type" ng-model="vm.data.task_type" minlength="3" maxlength="20">
+          <div ng-messages="edit_task_type_form.task_type.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 20 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="vm.data.desc" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Points</label>
+          <input ng-model="vm.data.points">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>SLA</label>
+          <input name="sla" ng-model="vm.data.sla" placeholder="12"
+                 required ng-pattern="/^[0-9]{3}$/" md-maxlength="3">
+
+          <div ng-messages="edit_task_type_form.sla.$error" role="alert" multiple>
+            <div ng-message="required">You must supply a SLA.</div>
+            <div ng-message="pattern">That doesn't look like a valid SLA</div>
+            <div ng-message="md-maxlength" class="my-message">
+              Absurd length of time, if you consider the time to be one-dimensional.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Feedback Type</label>
+          <md-select placeholder="Select Feedback Type" ng-model="vm.data.feedback_type"  style="min-width: 200px;">
+            <md-option ng-value="feedback_type" ng-repeat="feedback_type in vm.feedback_types">{{ feedback_type.feedback_type }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Form</label>
+          <md-select placeholder="Select Form" ng-model="vm.data.form" style="min-width: 200px;">
+            <md-option ng-value="form" ng-repeat="form in vm.forms">{{ form.name }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Training Kit</label>
+          <md-select placeholder="Select Training Kit" ng-model="vm.data.training_kit" style="min-width: 200px;">
+            <md-option ng-value="training_kit" ng-repeat="training_kit in vm.training_kits">{{ training_kit.name }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteTaskType()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editTaskType()" class="md-raised md-primary">
+        Submit
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.task_type_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

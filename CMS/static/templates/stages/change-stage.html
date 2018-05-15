@@ -1,0 +1,32 @@
+<md-dialog aria-label="Change Stage">
+  <form name="change_stage_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Change Stage</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Stages</label>
+          <md-select placeholder="Select Stage" ng-model="vm.selected_stage" style="min-width: 200px;">
+            <md-option ng-value="stage" ng-repeat="stage in vm.stages">{{ stage.name }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.changeStage()" class="md-raised md-primary">
+        Update
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.stage_change_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

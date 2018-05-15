@@ -1,0 +1,66 @@
+<md-card ng-href="/forms/{{ vm.task_type.form }}/data/add/{{ task.form_data }}">
+  <md-card-title>
+    <md-card-title-text>
+      <span class="md-headline">{{ vm.task_type.task_type }}</span>
+      <span class="md-subhead">
+        <md-tooltip>
+          {{ vm.task_type.desc }}
+        </md-tooltip>
+        {{ vm.task_type.desc.length <= 30 ? vm.task_type.desc : vm.task_type.desc.substr(0, 30)+'...' }}
+      </span>
+    </md-card-title-text>
+    <md-card-title-media>
+      <div class="md-media-lg card-media">
+        <a ng-href="/users/{{ vm.assignee.id }}"><span>Assignee: {{ vm.assignee.user.first_name }} {{ vm.assignee.user.last_name }}</span></a>
+        <br />
+        <span>
+          <md-tooltip>
+            {{ vm.task_status.desc }}
+          </md-tooltip>
+          Task Status: {{ vm.task_status.status }}
+        </span>
+        <br />
+        <span>
+          <md-tooltip>
+            {{ vm.feedback_type.desc }}
+          </md-tooltip>
+          Feedback Type: {{ vm.feedback_type.feedback_type }}
+        </span>
+        <br />
+        Points: {{ vm.task_type.points }}
+        <br />
+        <a ng-href="/training/{{ vm.training_kit.id }}/showcase"><span>Training Kit: {{ vm.training_kit.name }}</span></a>
+      </div>
+    </md-card-title-media>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="center">
+    <md-button class="md-icon-button" aria-label="Call" ng-click="vm.startCall()">
+      <md-icon md-font-set="material-icons" aria-label="Call">call</md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Send SMS" ng-click="vm.openNewMessagePopup($event)">
+      <md-icon md-font-set="material-icons" aria-label="Send SMS">message</md-icon>
+    </md-button>
+    <md-menu md-offset="5 0">
+      <md-button class="md-icon-button" aria-label="Change Status" ng-click="$mdOpenMenu($event)">
+        <md-icon md-font-set="material-icons" aria-label="Change Status">more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="6">
+        <md-menu-item>
+          <md-button ng-click="vm.openChangeStatusPopup($event)">
+            Change Status
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-href="/tasks/{{ task.id }}/forms/{{ vm.task_type.form }}/data/add/{{ task.form_data }}">
+            View Form
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button ng-href="/users/{{ task.beneficiary }}">
+            Beneficiary Profile
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </md-card-actions>
+</md-card>

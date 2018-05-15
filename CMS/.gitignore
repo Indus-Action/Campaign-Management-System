@@ -1,0 +1,30 @@
+__pycache__
+node_modules
+
+*.pyc
+*.out
+*.xcf
+*.egg
+*.sqlite3
+*.csv
+
+# temporary files from vim and emacs
+*~
+*#
+.#*
+*.swp
+*.swo
+
+node_modules/
+
+# Bower Components
+static/bower_components/
+
+# User uploads dir
+static/user_files/
+
+# Virtualenv
+venv/
+
+# Mac
+.DS_Store

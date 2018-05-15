@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="row" flex>
+    <div ng-repeat="message in vm.messages">
+      <message message="message"></message>
+    </div>
+  </div>
+  <div flex ng-hide="vm.messages && vm.messages.length" layout-align="end end">
+    <div>
+      <em>No messages yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewMessagePopup()">
+      <md-tooltip>
+        Send a new message
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

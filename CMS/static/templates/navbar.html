@@ -1,0 +1,74 @@
+<div ng-cloak ng-controller="NavController as vm">
+  <md-content>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>VMS 2.0</span>
+        </h2>
+        <md-button ng-href="/" aria-label="Home" ng-show="vm.is_authenticated()">
+          Home
+        </md-button>
+        <md-button ng-href="/tasks/list" aria-label="Tasks" ng-show="vm.is_authenticated()">
+          Tasks
+        </md-button>
+        <md-button ng-href="/noticeboard" aria-label="Notice Board" ng-show="vm.is_authenticated()">
+          Notice Board
+        </md-button>
+        <md-button ng-href="/calendar" aria-label="Calendar" ng-show="vm.is_authenticated()">
+          Calendar
+        </md-button>
+        <span flex></span>
+        <md-button aria-label="Search" ng-show="vm.is_authenticated()" ng-click="vm.openSearchDialog()">
+          <md-icon md-font-set="material-icons">search</md-icon>
+        </md-button>
+        <md-menu md-offset="5 0">
+          <md-button aria-label="Task Settings" ng-show="vm.is_authenticated() && vm.is_admin()" ng-click="$mdOpenMenu($event)">
+            <md-icon md-font-set="material-icons">settings</md-icon><md-icon md-font-set="material-icons">arrow_drop_down</md-icon>
+          </md-button>
+          <md-menu-content width="6">
+            <md-menu-item>
+              <md-button ng-href="/tasks/settings">
+                Task Settings
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/training">
+                Training Kits
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/forms">
+                Forms
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/hooks">
+                Hooks
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-href="/helpline">
+                Helpline Configuration
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-button aria-label="Guilds" ng-show="vm.is_authenticated() && vm.is_admin()" ng-href="/guilds">
+          Guilds
+        </md-button>
+        <md-button aria-label="Profile" ng-show="vm.is_authenticated()" ng-click="vm.updateUserDetails()">
+          User Details
+        </md-button>
+        <md-button aria-label="Logout" ng-show="vm.is_authenticated()" ng-click="vm.logoutPerform()">
+          Logout
+        </md-button>
+        <md-button aria-label="Login" ng-show="!vm.is_authenticated()" ng-click="vm.loginPopup($event)">
+          Login
+        </md-button>
+        <md-button aria-label="Register" ng-show="!vm.is_authenticated()" ng-click="vm.registerPopup($event)">
+          Register
+        </md-button>
+      </div>
+    </md-toolbar>
+  </md-content>
+</div>

@@ -1,0 +1,38 @@
+<ng-form layout="row" flex name="innerForm" id="innerForm">
+  <div ng-if="!field.multiple" layout="row" flex>
+    <md-input-container flex>
+      <label>{{field.title}}</label>
+      <md-select name="selectfield" ng-model="field.value" ng-required="field.required" ng-disabled="field.disabled" >
+        <md-option ng-repeat="option in field.options"
+                ng-selected="option.value == field.value"
+                value="{{option.value}}">
+          {{option.title}}
+        </md-option>
+      </md-select>
+      <div ng-messages="innerForm.selectfield.$error">
+        <div ng-message-exp="['required']">
+          This field is required.
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+
+  <div ng-if="field.multiple" flex>
+    <md-input-container layout="row">
+      <label>{{field.title}}</label>
+      <md-select name="selectField" flex ng-model="field.value" multiple>
+          <md-optgroup label="field.title">
+            <md-option ng-value="option.value"
+                    ng-repeat="option in field.options" 
+                    ng-selected="option.value === field.value[$index]">{{option.title}}
+            </md-option>
+          </md-optgroup>
+      </md-select>
+      <div ng-messages="innerForm.selectfield.$error">
+        <div ng-message-exp="['required']">
+          This field is required.
+        </div>
+      </div>
+    </md-input-container>
+  </div>
+</ng-form>

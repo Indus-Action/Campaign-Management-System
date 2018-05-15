@@ -1,0 +1,299 @@
+
+  <md-content>
+    <div layout="row" layout-align="center">
+      <span class="h1" >Task Management Module</span>
+    </div>
+ 
+    <div layout="row">
+      <md-button class="md-raised md-primary" ng-disabled="!vm.is_admin" ng-click="vm.toggleAssign()">
+        Assign tasks <md-icon md-font-set="material-icons">
+          {{ vm.show_assignment_options ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+        </md-icon>
+      </md-button>
+      <md-button class="md-raised md-primary" ng-disabled="!vm.is_admin" ng-show="vm.filter_applied" ng-click="vm.export_flag = true; vm.updateFilters();">
+        Export <md-icon md-font-set="material-icons">file_download</md-icon>
+      </md-button>
+      <md-button class="md-raised md-primary" ng-disabled="!vm.is_admin" ng-click="vm.openCreateBulkTasksPopup($event);">
+        Create Bulk Tasks <md-icon md-font-set="material-icons">file_upload</md-icon>
+      </md-button>
+      <md-button class="md-raised md-primary" ng-disabled="!vm.is_admin" ng-click="vm.openImportDataPopup();">
+        Import Data  <md-icon md-font-set="material-icons">import_contacts</md-icon>
+      </md-button>
+
+      <md-button class="md-raised md-primary" ng-href="/tasks/new" aria-label="New Task">
+        Create Task 
+      </md-button>
+     
+    </div>
+    <div class="row" ng-show="vm.show_assignment_options">
+      <md-input-container>ng-href="/tasks/list" aria-label="Tasks" ng-show="vm.is_authenticated()"        <md-select ng-model="vm.selected_helpline_operators"
+                   md-on-close="vm.clearHelplineOperatorsSearchTerm()"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_helpline_operator_term"
+                   type="search"
+                   placeholder="Search for a helpline operator..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchHelplineOperatorTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="helpline_operators">
+            <md-option ng-value="operator.user.id" ng-repeat="operator in vm.available_helpline_operators">
+              {{ operator.user.first_name }} {{ operator.user.last_name }} | {{ operator.user.email }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <label>Volunteers</label>
+        <md-select ng-model="vm.selected_volunteers"
+                   md-on-close="vm.clearVolunteersSearchTerm()"
+                   data-md-container-class="select_volunteer_select_header"
+                   multiple>
+          <md-select-header class="volunteer_select_header">
+            <input ng-model="vm.search_volunteer_term"
+                   type="search"
+                   placeholder="Search for a volunteer..."
+                   class="volunteer_header_searchbox md-text"
+                   ng-keydown="vm.onSearchVolunteerTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="volunteers">
+            <md-option ng-value="volunteer.user.id" ng-repeat="volunteer in vm.available_volunteers">
+              {{ volunteer.user.first_name }} {{ volunteer.user.last_name }} | {{ volunteer.user.email }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      
+      <md-button class="md-fab md-primary" ng-disabled="!vm.is_admin" ng-click="vm.assignTasks(vm.selected)">
+        <md-icon md-font-set="material-icons">done</md-icon>
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.assignment_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </div>
+    <br>
+    <div layout="row">
+      <span>Quick filters </span>
+      <div ng-show="vm.filter_applied">
+        <md-button ng-click="vm.clearFilters()">
+          Clear all filters
+        </md-button>
+      </div>
+      <md-button ng-class="{'md-raised':vm.filters['toggle_own_tasks_filter']['is_enabled']}" ng-click="vm.filters['toggle_own_tasks_filter']['is_enabled'] = !vm.filters['toggle_own_tasks_filter']['is_enabled']; vm.filters['toggle_own_tasks_filter']['filter_value'] = vm.authenticated_user.id; vm.updateFilters();">
+        My tasks
+      </md-button>
+      <md-button ng-class="{'md-raised':vm.filters['toggle_my_guild_filter']['is_enabled']}" ng-click="vm.filters['toggle_my_guild_filter']['is_enabled'] = !vm.filters['toggle_my_guild_filter']['is_enabled']; vm.filters['toggle_my_guild_filter']['filter_value'] = vm.guild; vm.updateFilters();">
+        My Guild Tasks
+      </md-button>
+      <md-button ng-class="{'md-raised':vm.filters['toggle_due_today_filter']['is_enabled']}" ng-click="vm.filters['toggle_due_today_filter']['is_enabled'] = !vm.filters['toggle_due_today_filter']['is_enabled']; vm.filters['toggle_due_today_filter']['filter_value'] = ''; vm.updateFilters();">
+        Due Today
+      </md-button>
+      <md-button ng-class="{'md-raised':vm.filters['toggle_past_due_date_filter']['is_enabled']}" ng-click="vm.filters['toggle_past_due_date_filter']['is_enabled'] = !vm.filters['toggle_past_due_date_filter']['is_enabled']; vm.filters['toggle_past_due_date_filter']['filter_value'] = ''; vm.updateFilters();">
+        Past Due Date
+      </md-button>
+      <md-input-container class="md-block" class="row">
+        <label>Mobile</label>
+        <input ng-model="vm.search_mobile"/>
+        <md-button aria-label="Search" ng-click="vm.filters['toggle_beneficiary_filter']['is_enabled'] = !vm.filters['toggle_beneficiary_filter']['is_enabled']; vm.filters['toggle_beneficiary_filter']['filter_value'] = vm.search_mobile; vm.updateFilters();">
+          <md-icon md-font-set="material-icons">search</md-icon>
+        </md-button>
+      </md-input-container>
+      <md-input-container layout="row" ng-show="vm.is_admin">
+        <label>Assignee</label>
+        <md-select ng-model="vm.selected_assignee"
+                   md-on-close="vm.clearAssigneeSearchTerm(); vm.filters['toggle_assignee_filter']['is_enabled'] = (vm.selected_assignee.length > 0); vm.filters['toggle_assignee_filter']['filter_value'] = vm.selected_assignee; vm.updateFilters();"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_assignee_term"
+                   type="search"
+                   placeholder="Search for a user..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchAssigneeTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="helpline_operators">
+            <md-option ng-value="user.user.id" ng-repeat="user in vm.available_users">
+              {{ user.user.first_name }} {{ user.user.last_name }} | {{ user.user.email }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Task Status</label>
+        <md-select ng-model="vm.selected_task_status"
+                   md-on-close="vm.clearTaskStatusSearchTerm(); vm.filters['toggle_task_status_filter']['is_enabled'] = (vm.selected_task_status.length > 0); vm.filters['toggle_task_status_filter']['filter_value'] = vm.selected_task_status; vm.updateFilters();"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_task_status_term"
+                   type="search"
+                   placeholder="Search for a task status..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchTaskStatusTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="task_status">
+            <md-option ng-value="task_status.id" ng-repeat="task_status in vm.available_task_status">
+              {{ task_status.status }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block" ng-show="vm.is_admin">
+        <label>Task Status Category</label>
+        <md-select ng-model="vm.selected_task_status_categories"
+                   md-on-close="vm.clearTaskStatusCategorySearchTerm(); vm.filters['toggle_task_status_category_filter']['is_enabled'] = (vm.selected_task_status_categories.length > 0); vm.filters['toggle_task_status_category_filter']['filter_value'] = vm.selected_task_status_categories; vm.updateFilters();"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_task_status_category_term"
+                   type="search"
+                   placeholder="Search for a task status category..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchTaskStatusCategoryTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="task_status_category">
+            <md-option ng-value="task_status_category.id" ng-repeat="task_status_category in vm.available_task_status_categories">
+              {{ task_status_category.category }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Task Type</label>
+        <md-select ng-model="vm.selected_task_types"
+                   md-on-close="vm.clearTaskTypeSearchTerm(); vm.filters['toggle_task_type_filter']['is_enabled'] = (vm.selected_task_types.length > 0); vm.filters['toggle_task_type_filter']['filter_value'] = vm.selected_task_types; vm.updateFilters();"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_task_type_term"
+                   type="search"
+                   placeholder="Search for a task type..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchTaskTypeTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="task_type">
+            <md-option ng-value="task_type.id" ng-repeat="task_type in vm.available_task_types">
+              {{ task_type.task_type }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block" ng-show="vm.is_admin">
+        <label>Tags</label>
+        <md-select ng-model="vm.selected_tags"
+                   md-on-close="vm.clearTagSearchTerm(); vm.filters['toggle_tag_filter']['is_enabled'] = (vm.selected_tags.length > 0); vm.filters['toggle_tag_filter']['filter_value'] = vm.selected_tags; vm.updateFilters();"
+                   data-md-container-class="select_helpline_operator_select_header"
+                   multiple>
+          <md-select-header class="helpline_operator_select_header">
+            <input ng-model="vm.search_tag_term"
+                   type="search"
+                   placeholder="Search for a tag..."
+                   class="helpline_operator_header_searchbox md-text"
+                   ng-keydown="vm.onSearchTagTextChange($event)">
+          </md-select-header>
+          <md-optgroup label="tag">
+            <md-option ng-value="tag.id" ng-repeat="tag in vm.available_tags">
+              {{ tag.tag }}
+            </md-option>
+          </md-optgroup>
+        </md-select>
+      </md-input-container>
+    </div>
+    <br>
+    <div>
+      <table class="table table-striped table-hover" st-table="vm.displayed_tasks" st-safe-src="vm.tasks">
+        <thead>
+          <tr>
+            <th>
+              <md-checkbox aria-label="Select All"
+                         ng-checked="vm.taskcheckboxes.areAllBoxesChecked()"
+                         md-indeterminate="vm.taskcheckboxes.isMainBoxIndeterminate()"
+                         ng-click="vm.taskcheckboxes.toggleAllBoxes()">
+              </md-checkbox>
+            </th>
+            <th st-sort="id">ID</th>
+            <th st-sort="beneficiary.first_name + beneficiary.last_name">Beneficiary</th>
+            <th st-sort="assignee.first_name + assignee.last_name">Assignee</th>
+            <th st-sort="start_date">Start Date</th>
+            <th st-sort="due_date">Due Date</th>
+            <th st-sort="task_type">Task Type</th>
+            <th st-sort="status">Status</th>
+            <th st-sort="actions">Actions</th>
+          </tr>
+        </thead>
+        <tr>
+          <th colspan="11"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+        </tr>
+        <tbody>
+          <tr>
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.update_filter_in_progress">
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+          </tr>
+          <tr ng-repeat="task in vm.displayed_tasks">
+            <td>
+              <md-checkbox aria-label="Select task" ng-checked="vm.taskcheckboxes.isChecked(task, vm.selected_tasks)" ng-click="vm.taskcheckboxes.toggleBox(task, vm.selected_tasks)">
+               {{ item }}
+              </md-checkbox>
+            </td>
+            <td>{{ $index + 1 }}</td>
+            <td><a ng-href="/users/{{ task.beneficiary.id }}">{{task.beneficiary.username}}</a></td>
+            <td><a ng-href="/users/{{ task.assignee.id }}">{{task.assignee.first_name + " " + task.assignee.last_name+" " + task.assignee.email}}</a></td>
+            <td>{{task.start_date}}</td>
+            <td>{{task.due_date}}</td>
+            <td>{{task.task_type.task_type}}</td>
+            <td>{{task.status.status}}</td>
+            <td>
+              <md-button class="md-icon-button" aria-label="Call" ng-click="vm.startCall(task)">
+                <md-tooltip>
+                  Call
+                </md-tooltip>
+                <md-icon md-font-set="material-icons" aria-label="Call">call</md-icon>
+              </md-button>
+            
+              <md-button class="md-icon-button" aria-label="Send SMS" ng-click="vm.openNewMessagePopup(task, $event)">
+                <md-tooltip>
+                  Send SMS
+                </md-tooltip>
+                <md-icon md-font-set="material-icons" aria-label="Send SMS">message</md-icon>
+              </md-button>
+            
+              <md-button class="md-icon-button" aria-label="View Form" ng-href="/tasks/{{ task.id }}/forms/{{ task.task_type.form }}/data/add/{{ task.form_data }}">
+                <md-tooltip>
+                  View Form
+                </md-tooltip>
+                <md-icon md-font-set="material-icons" aria-label="View Form">remove_red_eye</md-icon>
+              </md-button>
+
+              <md-button aria-label="Change Stage" class="md-icon-button" ng-click="vm.openChangeStagePopup($event,task)">
+              <md-tooltip>
+                Change Stage
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="Change Stage">send</md-icon>
+            </md-button>
+
+            <md-button aria-label="Change Status" class="md-icon-button" ng-click="vm.openChangeStatusPopup(task,$event)">
+              <md-tooltip>
+                Change Status
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="Change Status">forward</md-icon>
+            </md-button>
+
+             <md-button aria-label="Add Tag" class="md-icon-button" ng-click="vm.openAddTagPopup($event,task)">
+              <md-tooltip>
+                Add tags
+              </md-tooltip>
+              <md-icon md-font-set="material-icons" aria-label="tag">label</md-icon>
+            </md-button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ul uib-pagination total-items="vm.tasks_length" items-per-page="vm.page_size" ng-model="vm.page" class="pagination-sm" boundary-link-numbers="true" max-size="10" ng-change="vm.changePage()"></ul>
+    </div>
+
+  
+  </md-content>
+

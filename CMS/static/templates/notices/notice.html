@@ -1,0 +1,9 @@
+<md-card>
+  <md-card-content>
+    <span flex><h4>{{ notice.notice }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditNoticePopup(notice, $event)" ng-show="vm.is_authenticated && vm.is_admin">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <p>Created by: {{ notice.creator }}</p>
+  </md-card-content>
+</md-card>

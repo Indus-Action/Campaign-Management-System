@@ -1,0 +1,86 @@
+<md-dialog aria-label="Update Details" class="login-register-update-dialog" ng-cloak>
+  <form name="user_admin_details_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Update Details</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container>
+            <label>Email</label>
+            <input disabled type="email" name="email" ng-model="vm.profile.user.email" />
+          </md-input-container>
+
+          <md-input-container>
+            <label>Mobile</label>
+            <input required type="tel" name="mobile" ng-model="vm.profile.mobile" />
+            <div ng-messages="user_admin_details_form.mobile.$error" role="alert">
+              <div ng-message-exp="['required']">
+                Required.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>First Name</label>
+            <input required type="text" name="firstname" ng-model="vm.profile.user.first_name" maxlength="100" />
+            <div ng-messages="user_admin_details_form.firstname.$error" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">
+                Your name must be less than 100 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Last Name</label>
+            <input required type="text" name="lastname" ng-model="vm.profile.user.last_name" maxlength="100" />
+            <div ng-messages="user_admin_details_form.lastname.$error" role="alert">
+              <div ng-message-exp="['required','maxlength']">
+                Your name must be less than 100 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>User Type</label>
+            <md-select required name="usertype" ng-model="vm.profile.user_type">
+              <md-option ng-repeat="(key, value) in vm.usertypes" value="{{key}}">
+                {{value}}
+              </md-option>
+            </md-select>
+            <div ng-messages="user_admin_details_form.usertype.$error" role="alert">
+              <div ng-message-exp="['required']">
+                Required.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="user_admin_details_form.$invalid" ng-click="vm.updateUser()">
+        Finish
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+    <div class="alert alert-danger" ng-show="vm.updatefail" >
+      <a href="#" class="close" ng-click="vm.updatefail=false" >&times;</a>
+      <strong>Error : </strong> Update failed.
+      <br>
+      <span ng-repeat="(field,error) in vm.updatefailmessages">
+        {{field}} : {{error}}
+        <br>
+      </span>
+    </div>
+  </form>
+</md-dialog>

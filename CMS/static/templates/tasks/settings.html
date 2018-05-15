@@ -1,0 +1,162 @@
+<div ng-controller="TasksSettingsController" ng-cloak layout-gt-sm="row" layout="column">
+  <div flex-gt-sm flex>
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Task Settings</span>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">
+          Task Types
+          <md-button class="md-icon-button" ng-click="vm.openNewTaskTypePopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.task_types_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list-item class="md-2-line" ng-repeat="task_type in vm.task_types" ng-click="vm.openEditTaskTypePopup(task_type, $index, $event)">
+          <div class="md-list-item-text">
+            <h3>{{ task_type.task_type }}</h3>
+            <p>{{ task_type.desc }}</p>
+          </div>
+          <span flex></span>
+          <md-button class= "md-icon-button" ng-click="vm.openEditTaskTypePopup(task_type, $index, $event)">
+            <md-icon md-font-set="material-icons">mode_edit</md-icon>
+          </md-button>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">
+          Task Status
+          <md-button class="md-icon-button" ng-click="vm.openNewTaskStatusPopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.task_status_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list-item class="md-2-line" ng-repeat="task_status in vm.task_status" ng-click="vm.openEditTaskStatusPopup(task_status, $index, $event)">
+          <div class="md-list-item-text">
+            <h3>{{ task_status.status }}</h3>
+            <p>{{ task_status.desc }}</p>
+          </div>
+          <span flex></span>
+          <md-button class= "md-icon-button" ng-click="vm.openEditTaskStatusPopup(task_status, $index, $event)">
+            <md-icon md-font-set="material-icons">mode_edit</md-icon>
+          </md-button>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-subheader class="md-no-sticky">
+          Task Status Categories
+          <md-button class="md-icon-button" ng-click="vm.openNewTaskStatusCategoryPopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.task_status_categories_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list-item class="md-2-line">
+          <categories categories="vm.task_status_categories" parent="vm"></categories>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">
+          Feedback Types
+        </md-subheader>
+        <div ng-show="vm.feedback_types_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list-item class="md-2-line" ng-repeat="feedback_type in vm.feedback_types" ng-click="vm.okok()">
+          <div class="md-list-item-text">
+            <h3>{{ feedback_type.feedback_type }}</h3>
+            <p>{{ feedback_type.desc }}</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">
+          Stages
+          <md-button class="md-icon-button" ng-click="vm.openNewStagePopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.stages_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list-item class="md-2-line" ng-repeat="stage in vm.stages" ng-click="vm.openEditStagePopup(stage, $index, $event)">
+          <div class="md-list-item-text">
+            <h3>{{ stage.name }}</h3>
+            <p>{{ stage.desc }}</p>
+          </div>
+          <span flex></span>
+          <md-button class= "md-icon-button" ng-click="vm.openEditStagePopup(task_status, $index, $event)">
+            <md-icon md-font-set="material-icons">mode_edit</md-icon>
+          </md-button>
+        </md-list-item>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">
+          Tags
+          <md-button class="md-icon-button" ng-click="vm.openNewTagPopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.tags_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-chips ng-model="vm.tags"
+                  readonly="vm.are_tags_read_only">
+          <md-chip-template>
+            <md-tooltip>
+              {{ $chip.desc }}
+            </md-tooltip>
+            <span>
+              <strong>{{ $chip.tag }}</strong>
+            </span>
+          </md-chip-template>
+        </md-chips>
+        <md-divider ></md-divider>
+        <md-subheader class="md-no-sticky">
+          Interests
+          <md-button class="md-icon-button" ng-click="vm.openNewInterestPopup($event)">
+            <md-icon md-font-set="material-icons">add_circle</md-icon>
+          </md-button>
+        </md-subheader>
+        <div ng-show="vm.interests_loading">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-chips ng-model="vm.interests"
+                  readonly="vm.are_interests_read_only">
+          <md-chip-template>
+            <md-tooltip>
+              {{ $chip.desc }}
+            </md-tooltip>
+            <span>
+              <strong>{{ $chip.interest }}</strong>
+            </span>
+          </md-chip-template>
+        </md-chips>
+        <md-divider></md-divider>
+      </md-list>
+      <md-subheader class="md-no-sticky">
+        Spaces
+      </md-subheader>
+      <div ng-show="vm.space_types_loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <space-types space-types="vm.spaceTypes"></space-types>
+      <md-subheader class="md-no-sticky">
+        Message Templates
+      </md-subheader>
+      <div ng-show="vm.message_templates_loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <templates templates="vm.message_templates"></templates>
+      <md-subheader class="md-no-sticky">
+        IVR Templates
+      </md-subheader>
+      <div ng-show="vm.ivr_templates_loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <ivrts ivrts="vm.ivr_templates"></ivrts>
+    </md-content>
+  </div>
+</div>

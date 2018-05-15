@@ -1,0 +1,243 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress js %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL72wjthm0YoG04hsjIYpQnjybUoG4AVw&libraries=places" async defer></script>
+
+<script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/underscore/underscore-min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/angular-route/angular-route.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-cookies/angular-cookies.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-animate/angular-animate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-touch/angular-touch.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-material/angular-material.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-messages/angular-messages.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-aria/angular-aria.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/ngstorage/ngStorage.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-smart-table/dist/smart-table.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-strap/dist/angular-strap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-strap/dist/angular-strap.tpl.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/ng-dialog/js/ngDialog.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-file-upload/dist/angular-file-upload.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/papaparse/papaparse.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/vendor/ui-bootstrap-tpls-0.14.3.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/vms2.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/vms2.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/vms2.routes.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/layout/layout.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/layout/controllers/index.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/locations/locations.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/locations/services/locations.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/locations/directives/location.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/locations/controllers/new-location.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/task_types/task_types.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_types/services/task_types.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_types/controllers/new-task-type.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_types/controllers/edit-task-type.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/task_status_categories.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/services/task_status_categories.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/controllers/task_status_category.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/controllers/task_status_categories.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/controllers/new_task_status_category.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/controllers/edit_task_status_category.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/directives/task_status_category.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status_categories/directives/task_status_categories.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/task_status/task_status.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status/services/task_status.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status/controllers/new-task-status.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/task_status/controllers/edit-task-status.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/feedback_types/feedback_types.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/feedback_types/services/feedback_types.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/feedback_types/controllers/new-feedback-type.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/stages/stages.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/stages/services/stages.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/stages/controllers/new-stage.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/stages/controllers/edit-stage.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/notes/notes.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/services/notes.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/controllers/new-note.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/controllers/edit-note.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/controllers/notes.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/controllers/note.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/directives/notes.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notes/directives/note.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/message_templates/message_templates.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/services/message_templates.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/controllers/message_template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/controllers/message_templates.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/controllers/new-message-template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/controllers/edit-message-template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/directives/message_template.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/message_templates/directives/message_templates.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/user_messages/messages.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/user_messages/services/messages.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/user_messages/controllers/new-message.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/user_messages/controllers/messages.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/user_messages/directives/message.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/user_messages/directives/messages.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/todos/todos.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/services/todos.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/controllers/new-todo.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/controllers/edit-todo.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/controllers/todos.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/controllers/todo.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/controllers/list.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/directives/todos.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/todos/directives/todo.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/tags/tags.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tags/services/tags.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tags/controllers/new-tag.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/interests/interests.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/interests/services/interests.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/interests/controllers/new_interest.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/tasks/tasks.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/services/tasks.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/directives/task.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/directives/tasks.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/new-task.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/tasks.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/task.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/list.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/tasklist.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/settings.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/smart_assign.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/create_bulk_tasks.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/tasks/controllers/import_data.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/auth/auth.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/services/auth.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/login.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/registration.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/accountverify.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/updateprofile.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/usermanagement.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/userdialogedit.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/detail.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/reset_password.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/auth/controllers/reset_password_confirm.controller.js' %}"></script>
+
+
+<script type="text/javascript" src="{% static 'javascripts/core/core.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/core/controllers/search.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/nav/nav.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/nav/controllers/nav.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/forms/forms.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/services/forms.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/directives/field.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/directives/form.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/directives/formeditor.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/forms.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/formeditor.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/studio.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/formdata-add.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/formdata.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/formfield.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/new-message-fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/new-ivr-fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/new-note-fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/add-tag-fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/change-status-fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/change_stage_fab.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/open_training_kit.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/forms/controllers/beneficiary_rating.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/trainingkits.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/services/trainingkit.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/trainingkits.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/kitdialogedit.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/kitdialogadd.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/pagelist.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/pagedialogadd.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/pagedialogedit.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/pagecontentedit.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/kitshowcase.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/controllers/pageviewdialog.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/trainingkits/filters/trusturl.filter.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/ivr_templates.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/services/ivr_templates.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/controllers/ivr_templates.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/controllers/ivr_template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/controllers/new_ivr_template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/controllers/edit_ivr_template.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/directives/ivr_template.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivr_templates/directives/ivr_templates.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/ivrs/ivrs.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivrs/services/ivrs.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivrs/controllers/ivrs.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivrs/controllers/new_ivr.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivrs/directives/ivrs.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/ivrs/directives/ivr.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/event_conditions.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/services/event_conditions.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/controllers/list.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/controllers/helpline_list.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/controllers/new-event-condition.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/event_conditions/controllers/edit-event-condition.controller.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/guilds/guilds.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/services/guilds.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/controllers/guild.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/controllers/guilds.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/controllers/new-guild.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/controllers/edit-guild.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/controllers/list.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/directives/guild.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/guilds/directives/guilds.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/exotel/exotel.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/exotel/services/exotel.service.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/hooks/hooks.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/hooks/services/hooks.service.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/calls/calls.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/calls/services/calls.service.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/notices/notices.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/services/notices.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/controllers/new_notice.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/controllers/edit_notice.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/controllers/notices.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/controllers/notice.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/controllers/board.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/directives/notices.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/notices/directives/notice.directive.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/space_types/space_types.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/services/space_types.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/controllers/new_space_type.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/controllers/edit_space_type.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/controllers/space_types.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/controllers/space_type.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/directives/space_types.directive.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascripts/space_types/directives/space_type.directive.js' %}"></script>
+
+{% endcompress %}

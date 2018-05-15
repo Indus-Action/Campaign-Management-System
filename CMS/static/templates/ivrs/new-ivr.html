@@ -1,0 +1,49 @@
+<md-dialog aria-label="New IVR">
+  <form name="new_ivr_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>New IVR</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="ivr_creation_failed">
+      <a href="#" class="close" ng-click="vm.ivr_creation_failed = false;" >&times;</a>
+      <strong>Error : </strong> IVR Creation Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.ivr_creation_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>IVR Template</label>
+      <md-select placeholder="Select IVR Template" ng-model="vm.ivr_template" style="min-width: 200px;" md-on-close="vm.onTemplateSelect();">
+        <md-option ng-value="template" ng-repeat="template in vm.ivr_templates">{{ template.title }}</md-option>
+      </md-select>
+      <br/>
+    </md-input-container>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>EXOTEL App ID</label>
+          <input name="exotel_app_id" ng-model="vm.data.exotel_app_id" disabled></input>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input name="ivr_name" ng-model="vm.data.name"></input>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.createNewIVR()" class="md-raised md-primary">
+        Send
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.ivr_creation_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

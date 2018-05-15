@@ -1,0 +1,33 @@
+<div class="h2">{{ form.name }}</div>
+
+<div ng-show="!form.submitted">
+  <div class="field" layout="row">
+    <span class="h4" ng-hide="!form.id" >Form ID:</span>
+    <span class="h4">{{ form.id }}</span>
+  </div>
+  <p layout="row">{{form.description}}</p>
+  <br>
+  <form name="myForm" id="myForm">
+    <div flex ng-repeat="field in form.fields">
+      <br>
+      <field flex field="field">
+
+      </field>
+    </div>
+  </form>
+
+  <br>
+  <div class="form-actions" ng-hide="!form.id || !live">
+    <p class="text-center">
+      <md-button class="md-raised md-primary" ng-click="submit()">Submit</md-button>
+      <md-button class="md-raised md-warn" ng-click="cancel()">Reset</md-button>
+    </p>
+  </div>
+</div>
+
+<div ng-show="form.submitted">
+  <h3>Submitted Data</h3>
+  <div>
+    <pre>{{vm.submit_data | json}}</pre>
+  </div>
+</div>

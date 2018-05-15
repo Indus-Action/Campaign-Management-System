@@ -1,0 +1,50 @@
+<md-dialog aria-label="Edit IVR Template">
+  <form name="edit_ivr_template_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit IVR Template</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.ivr_template_edit_failed">
+      <a href="#" class="close" ng-click="vm.ivr_template_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> IVR Template Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.ivr_template_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input required name="title" ng-model="vm.data.title" minlength="3" maxlength="30">
+          <div ng-messages="edit_ivr_template_form.title.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 30 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>EXOTEL App ID</label>
+          <input required ng-model="vm.data.exotel_app_id" md-maxlength="6"></input>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteIVRTemplate()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editIVRTemplate()" class="md-raised md-primary">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.ivr_template_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

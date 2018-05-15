@@ -1,0 +1,40 @@
+<md-dialog aria-label="Training Kit Details" class="pageview-dialog" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{vm.page.name}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content class="full-dialog-content">
+      <div class="md-dialog-content full-dialog-content" layout="row" layout-align="center">
+        <div ng-if="vm.page.content_type=='TXT'">
+          {{vm.page.content}}
+        </div>
+        <div ng-if="vm.page.content_type=='IMG'">
+          <div uib-carousel interval="5000" class="page-img-carousel">
+            <div uib-slide ng-repeat="slide in vm.parsed_file_list track by $index">
+              <img ng-src="{{slide}}" style="max-width:60%; margin:auto;">
+            </div>
+          </div>
+        </div>
+        <div ng-if="vm.page.content_type=='VID'">
+          <video width="900" height="500" controls>
+            <source src="{{ vm.parsed_file_list[0] | TrustUrl }}" type="{{vm.getVideoType(vm.parsed_file_list[0])}}">
+            Your browser does not support the video tag.
+          </video> 
+        </div>
+        <div ng-if="vm.page.content_type=='HTM'" class="full-dialog-content">
+          <iframe ng-src="{{ vm.antiCacheUrl(vm.parsed_file_list[0]) | TrustUrl }}" class="full-dialog-content"></iframe>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+</md-dialog>

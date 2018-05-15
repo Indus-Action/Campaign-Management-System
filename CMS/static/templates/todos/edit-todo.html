@@ -1,0 +1,57 @@
+<md-dialog aria-label="Edit Todo">
+  <form name="edit_todo_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Todo</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="todo_edit_failed">
+      <a href="#" class="close" ng-click="vm.todo_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> Todo Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.todo_edit_failed_todos">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Todo</label>
+          <input name="todo" ng-model="vm.data.todo" minlength="3" maxlength="100">
+          <div ng-messages="edit_todo_form.todo.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 100 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <div layout="row">
+          <md-input-container class="md-block">
+            <label>Helpline Operator</label>
+            <md-select placeholder="Assign to user" ng-model="vm.data.assignee" md-on-open="vm.loadUsers()" style="min-width: 200px;">
+              <md-option ng-value="user" ng-repeat="user in vm.helpline_operators">{{ user.user.email }}</md-option>
+            </md-select>
+            <br/>
+          </md-input-container>
+          <md-datepicker ng-model="vm.data.due_date" md-placeholder="Due Date">
+          </md-datepicker>
+        </div>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteTodo()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editTodo()" class="md-raised md-primary">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.todo_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,96 @@
+<ng-form name="innerForm" id="innerForm">
+    <div ng-attr-id="map_{{field.title}}" ></div>
+
+    <md-autocomplete flex
+        md-input-name="autocompletefield"
+        md-floating-label="{{field.title}}"
+        ng-disabled="field.disabled"
+        ng-required="field.required"
+        md-no-cache="false"
+        md-selected-item="vm.selected_place"
+        md-selected-item-change="vm.getDetailedPlace(vm.selected_place.place_id)"
+        md-search-text="field.value.description"
+        md-items="place in vm.getPlaces(field.value.description)"
+        md-item-text="place.description"
+        md-input-id="autocompletefield" >
+        <md-item-template>
+          <span md-highlight-text="field.value.description" md-highlight-flags="^i">{{place.description}}</span>
+        </md-item-template>
+        <md-not-found>
+          No locations matching "{{field.value.description}}" were found.
+        </md-not-found>
+        <div ng-messages="innerForm.autocompletefield.$error" ng-if="innerForm.autocompletefield.$touched">
+            <div ng-message="required">Field is required.</div>
+        </div>
+    </md-autocomplete>
+
+    <uib-accordion>
+    <div uib-accordion-group is-open="false">
+        <uib-accordion-heading>
+            <div lauout="row" flex>Expand/Collapse location</div>
+        </uib-accordion-heading>
+        <md-content layout-padding>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Street Number</label>
+                    <input type="text" ng-model="field.value.street_number"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Route</label>
+                    <input type="text" ng-model="field.value.route"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Sublocality Level 3</label>
+                    <input type="text" ng-model="field.value.sublocality_level_3"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Sublocality Level 2</label>
+                    <input type="text" ng-model="field.value.sublocality_level_2"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Sublocality Level 1</label>
+                    <input type="text" ng-model="field.value.sublocality_level_1"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Locality</label>
+                    <input type="text" ng-model="field.value.locality"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Administrative Level 2</label>
+                    <input type="text" ng-model="field.value.administrative_area_level_2"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Administrative Level 1</label>
+                    <input type="text" ng-model="field.value.administrative_area_level_1"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Country</label>
+                    <input type="text" ng-model="field.value.country"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Pin Code</label>
+                    <input type="text" ng-model="field.value.postal_code"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Lat</label>
+                    <input type="text" ng-model="field.value.lat"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Long</label>
+                    <input type="text" ng-model="field.value.lng"/>
+                </md-input-container>
+            </div>
+        </md-content>
+    </div>
+    </uib-accordion>
+</ng-form>

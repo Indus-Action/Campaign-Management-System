@@ -1,0 +1,9 @@
+<md-card>
+  <md-card-content>
+    <span flex><h4>{{ note.note }}</h4></span>
+    <md-button class= "md-icon-button" ng-click="vm.openEditNotePopup(note, $event)">
+      <md-icon md-font-set="material-icons">mode_edit</md-icon>
+    </md-button>
+    <p>Created by: {{ note.creator }}</p>
+  </md-card-content>
+</md-card>

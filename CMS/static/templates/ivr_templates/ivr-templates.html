@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="row" flex>
+    <div ng-repeat="template in vm.ivr_templates">
+      <ivrt ivrt="template" parent="vm"></ivrt>
+    </div>
+  </div>
+  <div flex ng-hide="vm.ivr_templates && vm.ivr_templates.length" layout-align="end end">
+    <div>
+      <em>No IVR templates yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewIVRTemplatePopup()">
+      <md-tooltip>
+        Create a new IVR template
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

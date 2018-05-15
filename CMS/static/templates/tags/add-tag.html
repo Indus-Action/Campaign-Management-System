@@ -1,0 +1,70 @@
+<md-dialog aria-label="Add Tag">
+  <form name="add_tag_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Tag</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.add_tag_failed">
+      <a href="#" class="close" ng-click="vm.add_tag_failed = false;" >&times;</a>
+      <strong>Error : </strong> Add Tag Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.add_tag_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <div class="md-block">
+          <label>Tags</label>
+          <div class="row">
+            <md-chips ng-model="vm.beneficiary_tags"
+                      readonly="vm.are_tags_read_only" md-on-remove="vm.removeTag($chip)" >
+              <md-chip-template>
+                <md-tooltip>
+                  {{ $chip.desc }}
+                </md-tooltip>
+                <span>
+                  <strong>{{ $chip.tag }}</strong>
+                </span>
+              </md-chip-template>
+            </md-chips>
+          </div>
+          <div class="row">
+            <md-select ng-model="vm.selected_tags"
+                       md-on-close="vm.clearTagSearchTerm();"
+                       data-md-container-class="select_helpline_operator_select_header"
+                       multiple>
+              <md-select-header class="helpline_operator_select_header">
+                <input ng-model="vm.search_tag_term"
+                       type="search"
+                       placeholder="Search for a tag..."
+                       class="helpline_operator_header_searchbox md-text"
+                       ng-keydown="vm.onSearchTagTextChange($event)">
+              </md-select-header>
+              <md-optgroup label="tag">
+                <md-option ng-value="tag.id" ng-repeat="tag in vm.available_tags">
+                  {{ tag.tag }}
+                </md-option>
+              </md-optgroup>
+            </md-select>
+
+          </div>
+        </div>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.addTags()" class="md-raised md-primary">
+        Add
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.add_tags_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

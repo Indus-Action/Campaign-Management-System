@@ -1,0 +1,51 @@
+<div class="container-fluid">
+
+  <div layout="row">
+    <span class="h2">Form Studio</span>
+  </div>
+
+  <div layout="row">
+    <span class="h4">Preview on left. Edit on right. And instructions instructions...</span>
+  </div>
+  <br>
+
+  <div layout="row">
+    <div class="vms2-form-preview-cont" flex="45">
+      <div class="vms2-form-preview-heading">
+        <span class="h3">Preview Pane</span>
+      </div>
+      <br>
+      <div class="well">
+        <div class="">
+     <!--     <form-directive form="vm.preview_persistent_form" live="vm.isformlive"></form-directive> -->
+          <form-directive form="vm.previewform" live="vm.isformlive"></form-directive>
+        </div>
+      </div>
+    </div>
+
+    <div flex></div>
+
+    <div class="vms2-form-edit-cont" flex="50">
+      <div class="vms2-form-edit-pane">
+        <span class="h3">Edit Pane</span>
+      </div>
+      <br>
+
+      <div class="well">
+        <div layout="row">
+          <md-button flex class="md-primary" ng-click="vm.preview()"><i class="material-icons icon-align">play_circle_outline</i> Preview</md-button>
+
+          <md-button flex class="md-warn" ng-click="vm.reset()"><i class="material-icons icon-align">autorenew</i> Reset</md-button>
+
+          <md-button flex class="md-primary" ng-click="vm.saveForm()" ng-disabled="!vm.is_admin || form_studio_form.$invalid" ><i class="material-icons icon-align">done</i> Save</md-button>
+        </div>
+        <hr>
+        <!-- <form-editor-directive form="vm.persistent_form" parentvm="vm" nested="false"></form-editor-directive> -->
+        <hr>
+        <form-editor-directive form="vm.form" parentvm="vm" nested="false"></form-editor-directive>
+        <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

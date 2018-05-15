@@ -1,0 +1,141 @@
+<md-dialog aria-label="Smart Assign">
+  <form name="smart_assign_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Smart Assign</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.smart_assign_failed">
+      <a href="#" class="close" ng-click="vm.smart_assign_failed = false;" >&times;</a>
+      <strong>Error : </strong> Smart Assign Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.smart_assign_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Stage</label>
+          <md-select placeholder="Select Stage" ng-model="vm.selected_stage" style="min-width: 200px;">
+            <md-option ng-value="stage" ng-repeat="stage in vm.stages">{{ stage.name }}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Task Status</label>
+          <md-select placeholder="Select Task Status" ng-model="vm.selected_task_status" style="min-width: 200px;">
+            <md-option ng-value="task_status" ng-repeat="task_status in vm.task_status">
+              {{ task_status.status }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Task Status Category</label>
+          <md-select placeholder="Select Task Status Category" ng-model="vm.selected_task_status_category" style="min-width: 200px;">
+            <md-option ng-value="task_status_category" ng-repeat="task_status_category in vm.task_status_categories">
+              {{ task_status_category.category }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Task Type</label>
+          <md-select placeholder="Select Task Type" ng-model="vm.selected_task_type" style="min-width: 200px;">
+            <md-option ng-value="task_type" ng-repeat="task_type in vm.task_types">
+              {{ task_type.task_type }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container layout="row">
+          <label>Tags</label>
+          <md-select ng-model="vm.data.selected_tags"
+                     md-on-close="vm.clearTagSearchTerm()"
+                     data-md-container-class="select_tag_select_header"
+                     multiple>
+            <md-select-header class="tag-select-header">
+              <input ng-model="vm.search_tag_term"
+                     type="search"
+                     placeholder="Start typing out a tag..."
+                     class="tag-header-searchbox md-text"
+                     ng-keydown="vm.onSearchTagTextChange($event)">
+            </md-select-header>
+            <md-optgroup label="tags">
+              <md-option ng-value="tag.id" ng-repeat="tag in vm.available_tags">{{ tag.tag }}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+        <md-input-container layout="row">
+          <label>Assignee</label>
+          <md-select ng-model="vm.selected_assignee"
+                     md-on-close="vm.clearAssigneeSearchTerm()"
+                     data-md-container-class="select_helpline_operator_select_header"
+                     multiple>
+            <md-select-header class="helpline_operator_select_header">
+              <input ng-model="vm.search_assignee_term"
+                     type="search"
+                     placeholder="Search for a user..."
+                     class="helpline_operator_header_searchbox md-text"
+                     ng-keydown="vm.onSearchAssigneeTextChange($event)">
+            </md-select-header>
+            <md-optgroup label="helpline_operators">
+              <md-option ng-value="user.user.id" ng-repeat="user in vm.available_users">
+                {{ user.user.first_name }} {{ user.user.last_name }} | {{ user.user.email }}
+              </md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+        <md-divider></md-divider>
+        <md-input-container layout="row">
+          <label>Helpline Operators</label>
+          <md-select ng-model="vm.selected_helpline_operators"
+                     md-on-close="vm.clearHelplineOperatorsSearchTerm()"
+                     data-md-container-class="select_helpline_operator_select_header"
+                     multiple>
+            <md-select-header class="helpline_operator_select_header">
+              <input ng-model="vm.search_helpline_operator_term"
+                     type="search"
+                     placeholder="Search for a helpline operator..."
+                     class="helpline_operator_header_searchbox md-text"
+                     ng-keydown="vm.onSearchHelplineOperatorTextChange($event)">
+            </md-select-header>
+            <md-optgroup label="helpline_operators">
+              <md-option ng-value="operator.user.id" ng-repeat="operator in vm.available_helpline_operators">
+                {{ operator.user.first_name }} {{ operator.user.last_name }} | {{ operator.user.email }}
+              </md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+        <md-input-container layout="row">
+          <label>Volunteers</label>
+          <md-select ng-model="vm.selected_volunteers"
+                     md-on-close="vm.clearVolunteersSearchTerm()"
+                     data-md-container-class="select_volunteer_select_header"
+                     multiple>
+            <md-select-header class="volunteer_select_header">
+              <input ng-model="vm.search_volunteer_term"
+                     type="search"
+                     placeholder="Search for a volunteer..."
+                     class="volunteer_header_searchbox md-text"
+                     ng-keydown="vm.onSearchVolunteerTextChange($event)">
+            </md-select-header>
+            <md-optgroup label="volunteers">
+              <md-option ng-value="volunteer.user.id" ng-repeat="volunteer in vm.available_volunteers">
+                {{ volunteer.user.first_name }} {{ volunteer.user.last_name }} | {{ volunteer.user.email }}
+              </md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-divider></md-divider>
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" ng-click="vm.smartAssign()">
+        Smart Assign <md-icon md-font-set="material-icons">person</md-icon>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

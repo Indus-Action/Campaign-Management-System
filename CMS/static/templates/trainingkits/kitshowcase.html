@@ -1,0 +1,74 @@
+<md-content class="md-padding" layout-xs="column" layout="column">
+  <div layout="row">
+    <div layout="column">
+      <div layout="row">
+        <span class="h1">{{vm.kit.name}}</span>
+      </div>
+      <div layout="row">
+        <span class="h4">Description: {{vm.kit.description}}</span>
+      </div>
+      <div layout="row">
+        <span class="">Kit ID: {{vm.kit.id}}</span>
+      </div>
+    </div>
+    <span flex></span>
+    <div layout="column" ng-hide="vm.in_form_data">
+      <div layout="row">
+        <md-button class="md-fab" aria-label="Toggle view" ng-click="vm.toggleview=!vm.toggleview">
+          <md-tooltip md-direction="left">
+            Toggle View
+          </md-tooltip>
+          <i class="material-icons kitshowcase-toggle-icon" ng-show="vm.toggleview">tab</i>
+          <i class="material-icons kitshowcase-toggle-icon" ng-show="!vm.toggleview">dashboard</i>
+        </md-button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class='md-padding' layout="row" layout-wrap ng-show="vm.toggleview">
+    <md-card class="kit-page-cards" ng-repeat="page in vm.kit.pages" ng-click="vm.openPageView(page.id)" ng-class="[{'blue-theme':page.content_type=='TXT'?true:false},{'yellow-theme':page.content_type=='IMG'?true:false},{'green-theme':page.content_type=='VID'?true:false},{'pink-theme':page.content_type=='HTM'?true:false}]">
+      <md-card-title>
+        <h2 ng-attr-title="{{page.name}}">{{page.name.length<=11?page.name:page.name.substr(0,8)+'...'}}</h2>
+      </md-card-title>
+      <md-card-content>
+        <p ng-attr-title="{{page.description}}">{{page.description.length<=15?page.description:page.description.substr(0,12)+'...'}}</p>
+      </md-card-content>
+      <md-card-actions class="md-actions" layout="row" layout-align="end center">
+    </md-card>
+  </div>
+
+  <div ng-show="!vm.toggleview">
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="{{page.name.length<=8?page.name:page.name.substr(0,5)+'...'}}" ng-repeat="page in vm.kit.pages">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">{{page.name}}</h1>
+          <h5 class="">{{page.description}}</h5>
+
+          <div class="well" layout="row" layout-align="center">
+            <div ng-if="page.content_type=='TXT'">
+              {{page.content}}
+            </div>
+            <div ng-if="page.content_type=='IMG'">
+              <div uib-carousel interval="5000" class="page-img-carousel">
+                <div uib-slide ng-repeat="slide in page.parsed_file_list track by $index">
+                  <img ng-src="{{slide}}" style="max-width:70%; margin:auto;">
+                </div>
+              </div>
+            </div>
+            <div ng-if="page.content_type=='VID'">
+              <video width="900" height="500" controls>
+                <source src="{{ page.parsed_file_list[0] | TrustUrl }}"
+                  type="{{vm.getVideoType(page.parsed_file_list[0])}}">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div ng-if="page.content_type=='HTM'" class="full-dialog-content">
+              <iframe ng-src="{{ vm.antiCacheUrl(page.parsed_file_list[0]) | TrustUrl }}" class="full-dialog-content"></iframe>
+            </div>
+          </div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </div>
+</md-content>

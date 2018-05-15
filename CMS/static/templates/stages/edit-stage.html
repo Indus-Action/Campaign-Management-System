@@ -1,0 +1,62 @@
+<md-dialog aria-label="Edit Stage">
+  <form name="edit_stage_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Stage</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="stage_edit_failed">
+      <a href="#" class="close" ng-click="vm.stage_edit_failed = false;" >&times;</a>
+      <strong>Error : </strong> Task Type Creation Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.stage_edit_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input required name="stage" ng-model="vm.data.name" minlength="3" maxlength="30">
+          <div ng-messages="edit_stage_form.stage.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 30 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="vm.data.desc" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+      </div>
+      <md-input-container class="md-block">
+        <md-switch class="md-primary" md-no-ink aria-label="Create a new task on transition switch" ng-model="vm.data.create_task_on_transition">
+          Create a new associated task on transition to this stage
+        </md-switch>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Associated Task Type</label>
+        <md-select placeholder="Select associated task type" ng-model="vm.data.task_type" md-on-open="vm.loadTaskTypes()">
+          <md-option ng-value="task_type" ng-repeat="task_type in vm.task_types">{{ task_type.task_type }}</md-option>
+        </md-select>
+        <br/>
+      </md-input-container>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteStage()" class="md-raised md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editStage()" class="md-raised md-primary">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.stage_edit_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

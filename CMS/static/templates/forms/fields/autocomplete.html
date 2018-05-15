@@ -1,0 +1,57 @@
+<ng-form name="innerForm" id="innerForm">
+    <div ng-if="!field.multiple" layout="row" flex>
+        <md-autocomplete flex
+            md-input-name="autocompletefield"
+            md-floating-label="{{field.title}}"
+            ng-disabled="field.disabled"
+            ng-required="field.required"
+            md-selected-item="vm.selected_item"
+            md-selected-item-change="field.value = vm.selected_item.value"
+            md-search-text="vm.searchtext"
+            md-items="option in vm.getOptions(vm.searchtext)"
+            md-item-text="option.title"
+            md-min-length="0"
+            md-input-id="autocompletefield" >
+            <md-item-template>
+              <span md-highlight-text="vm.searchtext" md-highlight-flags="^i">{{option.title}}</span>
+            </md-item-template>
+            <md-not-found>
+              No items matching "{{vm.searchtext}}" were found. Contact admin to add more options.
+            </md-not-found>
+            <div ng-messages="innerForm.autocompletefield.$error" ng-if="innerForm.autocompletefield.$touched">
+                <div ng-message="required">Field is required.</div>
+            </div>
+        </md-autocomplete>
+    </div>
+
+    <div ng-if="field.multiple" flex class="well">
+      <md-button ng-show="field.multiple" class="md-primary" ng-click="vm.addMoreToMultiField()"><i class="material-icons icon-align md-icon-button">add</i>More {{field.title}}</md-button>
+
+      <div layout="row" flex ng-repeat="val in field.value track by $index">
+        <md-autocomplete flex
+            md-input-name="autocompletefield"
+            md-floating-label="{{field.title}}"
+            ng-disabled="field.disabled"
+            ng-required="field.required"
+            md-selected-item="vm.dropdown_list[$index].selected"
+            md-selected-item-change="field.value[$index] = vm.dropdown_list[$index].selected.value"
+            md-search-text="vm.dropdown_list[$index].searchtext"
+            md-items="option in vm.getOptions(vm.dropdown_list[$index].searchtext)"
+            md-item-text="option.title"
+            md-min-length="0"
+            md-input-id="autocompletefield" >
+            <md-item-template>
+              <span md-highlight-text="vm.dropdown_list[$index].searchtext" md-highlight-flags="^i">{{option.title}}</span>
+            </md-item-template>
+            <md-not-found>
+              No items matching "{{vm.dropdown_list[$index].searchtext}}" were found. Contact admin to add more options.
+            </md-not-found>
+
+            <div ng-messages="innerForm.autocompletefield.$error" ng-if="innerForm.autocompletefield.$touched">
+            <div ng-message="required">Field is required.</div>
+            </div>
+        </md-autocomplete>
+        <md-button class="md-warn" ng-click="vm.deleteItem(field.value, $index); vm.deleteItem(vm.dropdown_list, $index)"><i class="material-icons icon-align">clear</i></md-button>
+      </div>
+    </div>
+</ng-form>

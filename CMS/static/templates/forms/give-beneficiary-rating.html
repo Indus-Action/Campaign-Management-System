@@ -1,0 +1,25 @@
+<md-dialog aria-label="Give Beneficiary Rating">
+  <form name="give_beneficiary_rating_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Give Beneficiary Rating</h2>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <div class="md-dialog-content">
+        <div layout>
+          <md-slider flex class="md-primary" md-discrete ng-model="vm.beneficiary_rating" step="1" min="1" max="5" aria-label="rating">
+          </md-slider>
+        </div>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.giveBeneficiaryRating()" class="md-raised md-primary">
+        Rate
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.give_rating_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

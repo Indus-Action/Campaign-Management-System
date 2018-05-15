@@ -1,0 +1,54 @@
+<md-dialog aria-label="Training Kit Details" class="training-kit-page-dialog" ng-cloak>
+  <form name="kit_details_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Training Kit Details</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container>
+            <label>Kit ID</label>
+            <input type="text" name="id" ng-model="vm.kit.id" disabled />
+          </md-input-container>
+
+          <md-input-container>
+            <label>Name</label>
+            <input required type="text" name="name" ng-model="vm.kit.name" maxlength="20" />
+            <div ng-messages="kit_details_form.name.$error" ng-show="kit_details_form.name.$dirty" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">
+                This field is required and must be less than 20 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Description</label>
+            <textarea required name="description" ng-model="vm.kit.description" md-maxlength="100" rows="4"> </textarea>
+            <div ng-messages="kit_details_form.description.$error" ng-show="kit_details_form.description.$dirty" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">
+                This field is required and must be less than 100 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="kit_details_form.$invalid" ng-click="vm.saveKit()">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

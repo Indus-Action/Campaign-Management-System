@@ -1,0 +1,38 @@
+<md-dialog aria-label="Search" ng-cloak>
+  <form name="search_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Search</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" ng-cloak class="md-inline-form">
+          <md-input-container class="md-block">
+            <input required minlength="10" name="mobile" ng-model="vm.mobile"/>
+            <div ng-messages="search_form.mobile.$error" role="alert">
+              <div ng-message-exp="['required', 'minlength']">
+                Mobile number must be a valid one
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div ng-show="vm.search_no_results">
+          No record found with given mobile number
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="search_form.$invalid" ng-click="vm.searchMobile()">
+        Search
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

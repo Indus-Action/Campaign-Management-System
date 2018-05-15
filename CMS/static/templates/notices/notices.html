@@ -1,0 +1,20 @@
+<div layout="column" layout-wrap ng-cloak>
+  <div layout="column" flex>
+    <div ng-repeat="notice in vm.notices">
+      <notice notice="notice" parent="vm"></notice>
+    </div>
+  </div>
+  <div flex ng-hide="vm.notices && vm.notices.length" layout-align="end end">
+    <div>
+      <em>No notices yet.</em>
+    </div>
+  </div>
+  <div flex layout-align="end end" layout="row" ng-show="vm.is_authenticated && vm.is_admin">
+    <md-button class="md-primary md-fab" ng-click="vm.openNewNoticePopup()">
+      <md-tooltip>
+        Add a new notice
+      </md-tooltip>
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+  </div>
+</div>

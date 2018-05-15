@@ -1,0 +1,50 @@
+<md-dialog aria-label="Edit Message Template">
+  <form name="edit_message_template_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Message Template</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="message_creation_failed">
+      <a href="#" class="close" ng-click="vm.message_creation_failed = false;" >&times;</a>
+      <strong>Error : </strong> Message Template Edit Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.message_template_creation_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input required name="title" ng-model="vm.data.title" minlength="3" maxlength="30">
+          <div ng-messages="new_message_template_form.title.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              This field can not be blank and its length should be between 3 and 30 characters.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Body</label>
+          <textarea ng-model="vm.data.body" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+      </div>
+    </md-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.deleteMessageTemplate()" class="md-warn">
+        Delete
+      </md-button>
+      <md-button ng-click="vm.editMessageTemplate()" class="md-raised md-primary">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.task_status_creation_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

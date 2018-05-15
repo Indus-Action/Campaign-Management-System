@@ -1,0 +1,23 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress css %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/angular-material/angular-material.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/ng-dialog/css/ngDialog.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bower_components/ng-dialog/css/ngDialog-theme-default.min.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/style.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/tags/new-tag.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/tasks/task.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/tasks/tasks-listing.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/forms/formdata-add.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/trainingkits/pagedialog.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/trainingkits/dragdroplist.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/trainingkits/pageview.css' %}" />
+{% endcompress %}

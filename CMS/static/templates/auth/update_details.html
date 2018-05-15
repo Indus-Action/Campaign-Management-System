@@ -1,0 +1,79 @@
+<md-dialog aria-label="Update Details" class="login-register-update-dialog" ng-cloak>
+  <form name="user_details_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Update Details</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="column" ng-cloak class="md-inline-form">
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>Email</label>
+              <input disabled type="email" name="email" ng-model="user_details.email" />
+            </md-input-container>
+
+            <md-input-container flex="50">
+              <label>Mobile</label>
+              <input disabled name="mobile" ng-model="user_details.mobile" />
+            </md-input-container>
+          </div>
+
+          <md-input-container>
+            <label>First Name</label>
+            <input required type="text" name="firstname" ng-model="user_details.first_name" maxlength="100" />
+            <div ng-messages="user_details_form.firstname.$error" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">
+                Your name must be less than 100 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Last Name</label>
+            <input required type="text" name="lastname" ng-model="user_details.last_name"
+                   maxlength="100" />
+            <div ng-messages="user_details_form.lastname.$error" role="alert">
+              <div ng-message-exp="['required', 'maxlength']">
+                Your name must be less than 100 characters.
+              </div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>User Type</label>
+            <md-select ng-model="user_details.type">
+              <md-option disabled ng-repeat="(key, value) in usertypes" value="{{key}}">
+                {{value}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="user_details_form.$invalid" ng-click="updatePerform()">
+        Finish
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+    <div class="alert alert-danger" ng-show="updatefail" >
+      <a href="#" class="close" ng-click="updatefail=false" >&times;</a>
+      <strong>Error : </strong> Update failed.
+      <br>
+      <span ng-repeat="(field,error) in updatefailmessages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+  </form>
+</md-dialog>

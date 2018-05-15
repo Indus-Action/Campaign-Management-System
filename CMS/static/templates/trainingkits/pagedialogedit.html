@@ -1,0 +1,77 @@
+<md-dialog aria-label="Training Page Details" class="training-kit-page-dialog" ng-cloak>
+  <form name="page_details_form">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Training Page Details</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.cancel()">
+          <i class="material-icons">clear</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column" ng-cloak class="md-inline-form">
+              <div layout="row">
+                <md-input-container flex="50">
+                  <label>Page ID</label>
+                  <input type="text" name="id" ng-model="vm.page.id" disabled />
+                </md-input-container>
+
+                <md-input-container flex="50">
+                  <label>Kit ID</label>
+                  <input type="text" name="kit_id" ng-model="vm.kit_id" disabled />
+                </md-input-container>
+              </div>
+
+              <md-input-container>
+                <label>Name</label>
+                <input required type="text" name="name" ng-model="vm.page.name"
+                       maxlength="20" />
+                <div ng-messages="page_details_form.name.$error">
+                  <div ng-message-exp="['required', 'maxlength']">
+                    This field is required and must be less than 20 characters.
+                  </div>
+                </div>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Description</label>
+                <textarea required name="description" ng-model="vm.page.description"
+                       md-maxlength="100" rows="4"> </textarea>
+                <div ng-messages="page_details_form.description.$error" >
+                  <div ng-message-exp="['required', 'maxlength']">
+                    This field is required and must be less than 100 characters.
+                  </div>
+                </div>
+              </md-input-container>
+
+              <md-input-container>
+                <label>Content Type (Not supported)</label>
+                <md-select name="contenttype" ng-model="vm.page.content_type" required="true">
+                    <md-option ng-repeat="(key, value) in vm.pagetypes" value="{{key}}">
+                    {{value}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="page_details_form.contenttype.$error">
+                  <div ng-message-exp="['required']">
+                    This field is required.
+                  </div>
+                </div>
+              </md-input-container>
+
+            </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button ng-disabled="page_details_form.$invalid" ng-click="vm.savePage()">
+        Save
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+
+  </form>
+</md-dialog>

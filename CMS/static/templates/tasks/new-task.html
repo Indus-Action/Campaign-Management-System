@@ -1,0 +1,55 @@
+<div>
+  <form name="userForm">
+    <div class="alert alert-danger" ng-show="vm.task_creation_failed">
+      <a href="#" class="close" ng-click="vm.task_creation_failed=false" >&times;</a>
+      <strong>Error : </strong> Task creation failed.
+      <br>
+      <span ng-repeat="(field,error) in vm.task_creation_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-content layout-padding>
+
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Beneficiary Mobile Number</label>
+          <input ng-model="vm.data.mobile"/>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Helpline Operator</label>
+          <md-select ng-model="vm.data.assignee" md-on-open="vm.loadUsers()" style="min-width: 200px;">
+            <md-option ng-value="user.user" ng-repeat="user in vm.helpline_operators">{{ user.user.email }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Task Type</label>
+          <md-select placeholder="Select Task Type" ng-model="vm.data.task_type" md-on-open="vm.loadTaskTypes()" style="min-width: 200px;">
+            <md-option ng-value="task_type" ng-repeat="task_type in vm.task_types">{{ task_type.task_type }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Task Status</label>
+          <md-select placeholder="Select Task Status" ng-model="vm.data.status" md-on-open="vm.loadTaskStatus()" style="min-width: 200px;">
+            <md-option ng-value="task_status" ng-repeat="task_status in vm.task_status">{{ task_status.status }}</md-option>
+          </md-select>
+          <br/>
+        </md-input-container>
+      </div>
+    </md-content>
+    <div layout-gt-sm="row">
+      <md-button ng-click="vm.submit()" class="md-primary md-raised" flex-gt-sm >
+        Create
+      </md-button>
+    </div>
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.task_creation_in_progress">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+</md-content>
+</form>
+</div>

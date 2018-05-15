@@ -1,0 +1,49 @@
+<md-dialog aria-label="Import Data">
+  <form name="import_data_form" ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Import Data</h2>
+        <span flex></span>
+        <md-button class= "md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="alert alert-danger" ng-show="vm.import_data_failed">
+      <a href="#" class="close" ng-click="vm.import_data_failed = false;" >&times;</a>
+      <strong>Error : </strong> Import Data Failed
+      <br>
+      <span ng-repeat="(field,error) in vm.import_data_failed_messages">
+        <span ng-repeat="err in error">{{field}} : {{err}}</span>
+        <br>
+      </span>
+    </div>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container class="md-block">
+          <label>Success Task Status</label>
+          <md-select name="task_status" placeholder="Select Success Task Status" ng-model="vm.data.success_task_status" style="min-width: 200px;">
+            <md-option ng-value="task_status.id" ng-repeat="task_status in vm.task_status">{{ task_status.status }}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Failure Task Status</label>
+          <md-select name="task_status" placeholder="Select Failure Task Status" ng-model="vm.data.failure_task_status" style="min-width: 200px;">
+            <md-option ng-value="task_status.id" ng-repeat="task_status in vm.task_status">{{ task_status.status }}</md-option>
+          </md-select>
+        </md-input-container>
+        <div>
+          <input type="file" id="fileInput">
+        </div>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="vm.importData()" class="md-raised md-primary">
+        Import Data
+      </md-button>
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-show="vm.import_data_in_progress">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

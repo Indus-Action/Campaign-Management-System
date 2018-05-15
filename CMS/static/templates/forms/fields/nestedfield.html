@@ -1,0 +1,66 @@
+<div class="well">
+  <ng-form name="myForm" id="myForm">
+
+    <div ng-show="!field.multiple" flex>
+      <uib-accordion close-others="false">
+        <div uib-accordion-group heading="{{ field.default_value?field.default_value.name:field.fields.name }}" is-open="true">
+          <p layout="row">{{ field.default_value?field.default_value.description:field.fields.description }}</p>
+          <div ng-if="!field.tabbed">
+            <div ng-repeat="inner_field in field.fields.fields">
+              <br>
+              <field layout="row" flex field="inner_field"></field>
+            </div>
+          </div>
+          <div ng-if="field.tabbed">
+            <md-tabs class="md-primary" md-align-tabs="{{field.tabs_position}}" md-dynamic-height="true" >
+              <md-tab ng-repeat="inner_field in field.fields.fields">
+                <md-tab-label>Page {{$index}}</md-tab-label>
+                <md-tab-body>
+                  <field layout="row" flex field="inner_field"></field>
+                </md-tab-body>
+              </md-tab>
+            </md-tabs>
+          </div>
+        </div>
+      </uib-accordion>
+    </div>
+
+    <div ng-show="field.multiple">
+      <div class="h4">{{ field.default_value?field.default_value.name:field.fields.name }}</div>
+      <p layout="row">{{ field.default_value?field.default_value.description:field.fields.description }}</p>
+      <md-button ng-show="field.multiple" class="md-primary" ng-click="vm.addMoreToMultiField()"><i class="material-icons icon-align md-icon-button">add</i>More {{field.fields[0].name}}</md-button>
+
+      <div>
+      <uib-accordion close-others="false">
+        <div uib-accordion-group ng-repeat="val in field.fields track by $index">
+          <uib-accordion-heading>
+          <div>
+            <div layout="row" flex>
+              <div>{{ field.default_value?field.default_value.name:field.fields.name }} - {{ $index }}</div>
+              <div flex></div>
+              <md-button class="md-warn no-margin no-padding" ng-click="vm.deleteItem(field.fields, $index, $event)"><i class="material-icons icon-align">clear</i></md-button>
+            </div>
+          </div>
+          </uib-accordion-heading>
+          <div ng-if="!field.tabbed">
+            <div ng-repeat="inner_field in field.fields[$index].fields">
+              <br>
+              <field layout="row" flex field="inner_field"></field>
+            </div>
+          </div>
+          <div ng-if="field.tabbed">
+            <md-tabs class="md-primary" md-align-tabs="{{field.tabs_position}}" md-dynamic-height="true">
+              <md-tab ng-repeat="inner_field in field.fields[$index].fields">
+                <md-tab-label>Page {{$index}}</md-tab-label>
+                <md-tab-body>
+                  <field layout="row" flex field="inner_field"></field>
+                </md-tab-body>
+              </md-tab>
+            </md-tabs>
+          </div>
+        </div>
+      </uib-accordion>
+      </div>
+    </div>
+  </ng-form>
+</div>
